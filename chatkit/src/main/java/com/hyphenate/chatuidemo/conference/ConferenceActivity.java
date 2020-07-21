@@ -396,53 +396,41 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.btn_invite:
-                    selectUserToJoinConference();
-                    break;
-                case R.id.btn_mic_switch:
-                    voiceSwitch();
-                    break;
-                case R.id.btn_speaker_switch:
-                    if (speakerSwitch.isActivated()) {
-                        closeSpeaker();
-                    } else {
-                        openSpeaker();
-                    }
-                    break;
-                case R.id.btn_camera_switch:
-                    videoSwitch();
-                    break;
-                case R.id.btn_desk_share:
-                    if (screenShareSwitch.isActivated()) {
-                        screenShareSwitch.setActivated(false);
-                        unpublish(conference.getPubStreamId(EMConferenceStream.StreamType.DESKTOP));
-                    } else {
-                        screenShareSwitch.setActivated(true);
-                        publishDesktop();
-                    }
-                    break;
-                case R.id.btn_change_camera_switch:
-                    changeCamera();
-                    break;
-                case R.id.btn_hangup:
-                    exitConference();
-                    break;
-                case R.id.btn_debug:
-                    EMLog.i(TAG, "Button debug clicked!!!");
-                    EMClient.getInstance().conferenceManager().enableStatistics(true);
-                    openDebugPanel();
-                    break;
-                case R.id.btn_scale_mode: // 全屏状态下切换视频scale mode
-                    changeFullScreenScaleMode();
-                    break;
-                case R.id.btn_close: // 显示悬浮框
-                    showFloatWindow();
-                    break;
-                case R.id.btn_zoomin:
-                    // exit full screen mode.
-                    callConferenceViewGroup.performClick(100, 100);
-                    break;
+            int id = view.getId();
+            if (id == R.id.btn_invite) {
+                selectUserToJoinConference();
+            } else if (id == R.id.btn_mic_switch) {
+                voiceSwitch();
+            } else if (id == R.id.btn_speaker_switch) {
+                if (speakerSwitch.isActivated()) {
+                    closeSpeaker();
+                } else {
+                    openSpeaker();
+                }
+            } else if (id == R.id.btn_camera_switch) {
+                videoSwitch();
+            } else if (id == R.id.btn_desk_share) {
+                if (screenShareSwitch.isActivated()) {
+                    screenShareSwitch.setActivated(false);
+                    unpublish(conference.getPubStreamId(EMConferenceStream.StreamType.DESKTOP));
+                } else {
+                    screenShareSwitch.setActivated(true);
+                    publishDesktop();
+                }
+            } else if (id == R.id.btn_change_camera_switch) {
+                changeCamera();
+            } else if (id == R.id.btn_hangup) {
+                exitConference();
+            } else if (id == R.id.btn_debug) {
+                EMLog.i(TAG, "Button debug clicked!!!");
+                EMClient.getInstance().conferenceManager().enableStatistics(true);
+                openDebugPanel();
+            } else if (id == R.id.btn_scale_mode) { // 全屏状态下切换视频scale mode
+                changeFullScreenScaleMode();
+            } else if (id == R.id.btn_close) { // 显示悬浮框
+                showFloatWindow();
+            } else if (id == R.id.btn_zoomin) {// exit full screen mode.
+                callConferenceViewGroup.performClick(100, 100);
             }
         }
     };

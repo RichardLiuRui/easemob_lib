@@ -222,16 +222,13 @@ public class MainActivity extends BaseActivity {
 	 * @param view
 	 */
 	public void onTabClicked(View view) {
-		switch (view.getId()) {
-		case R.id.btn_conversation:
+		int id = view.getId();
+		if (id == R.id.btn_conversation) {
 			index = 0;
-			break;
-		case R.id.btn_address_list:
+		} else if (id == R.id.btn_address_list) {
 			index = 1;
-			break;
-		case R.id.btn_setting:
+		} else if (id == R.id.btn_setting) {
 			index = 2;
-			break;
 		}
 		if (currentTabIndex != index) {
 			FragmentTransaction trx = getSupportFragmentManager().beginTransaction();

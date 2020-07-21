@@ -518,17 +518,14 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-        case R.id.local_surface:
+        int id = v.getId();
+        if (id == R.id.local_surface) {
             changeCallView();
-            break;
-        case R.id.btn_refuse_call: // decline the call
+        } else if (id == R.id.btn_refuse_call) { // decline the call
             isRefused = true;
             refuseBtn.setEnabled(false);
             handler.sendEmptyMessage(MSG_CALL_REJECT);
-            break;
-
-        case R.id.btn_answer_call: // answer the call
+        } else if (id == R.id.btn_answer_call) { // answer the call
             EMLog.d(TAG, "btn_answer_call clicked");
             answerBtn.setEnabled(false);
             openSpeakerOn();
@@ -544,18 +541,14 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
             hangupBtn.setVisibility(View.VISIBLE);
             voiceContronlLayout.setVisibility(View.VISIBLE);
             localSurface.setVisibility(View.VISIBLE);
-            break;
-
-        case R.id.btn_hangup_call: // hangup
+        } else if (id == R.id.btn_hangup_call) { // hangup
             hangupBtn.setEnabled(false);
             chronometer.stop();
             endCallTriggerByMe = true;
             callStateTextView.setText(getResources().getString(R.string.hanging_up));
             EMLog.d(TAG, "btn_hangup_call");
             handler.sendEmptyMessage(MSG_CALL_END);
-            break;
-
-        case R.id.iv_mute: // mute
+        } else if (id == R.id.iv_mute) { // mute
             if (isMuteState) {
                 // resume voice transfer
                 muteImage.setImageResource(R.drawable.em_icon_mute_normal);
@@ -575,8 +568,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                 }
                 isMuteState = true;
             }
-            break;
-        case R.id.iv_handsfree: // handsfree
+        } else if (id == R.id.iv_handsfree) { // handsfree
             if (isHandsfreeState) {
                 // turn off speaker
                 handsFreeImage.setImageResource(R.drawable.em_icon_speaker_normal);
@@ -587,8 +579,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                 openSpeakerOn();
                 isHandsfreeState = true;
             }
-            break;
-        /*
+            /*
         case R.id.btn_record_video: //record the video
             if(!isRecording){
 //                callHelper.startVideoRecord(PathUtil.getInstance().getVideoPath().getAbsolutePath());
@@ -604,7 +595,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
             }
             break;
         */
-        case R.id.root_layout:
+        } else if (id == R.id.root_layout) {
             if (callingState == CallingState.NORMAL) {
                 if (bottomContainer.getVisibility() == View.VISIBLE) {
                     bottomContainer.setVisibility(View.GONE);
@@ -617,12 +608,8 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                     oppositeSurface.setScaleMode(VideoView.EMCallViewScaleMode.EMCallViewScaleModeAspectFit);
                 }
             }
-            break;
-        case R.id.btn_switch_camera: //switch camera
+        } else if (id == R.id.btn_switch_camera) { //switch camera
             handler.sendEmptyMessage(MSG_CALL_SWITCH_CAMERA);
-            break;
-        default:
-            break;
         }
     }
 

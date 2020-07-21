@@ -402,34 +402,28 @@ public class ChatRoomDetailsActivity extends BaseActivity implements OnClickList
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.clear_all_history: // clear conversation history
-				String st9 = getResources().getString(R.string.sure_to_empty_this);
-				new EaseAlertDialog(ChatRoomDetailsActivity.this, null, st9, null, new AlertDialogUser() {
+		int id = v.getId();
+		if (id == R.id.clear_all_history) { // clear conversation history
+			String st9 = getResources().getString(R.string.sure_to_empty_this);
+			new EaseAlertDialog(ChatRoomDetailsActivity.this, null, st9, null, new AlertDialogUser() {
 
-					@Override
-					public void onResult(boolean confirmed, Bundle bundle) {
-						if (confirmed) {
-							clearGroupHistory();
-						}
+				@Override
+				public void onResult(boolean confirmed, Bundle bundle) {
+					if (confirmed) {
+						clearGroupHistory();
 					}
-				}, true).show();
-				break;
-			case R.id.rl_change_chatroom_name:
-				startActivityForResult(new Intent(this, EditActivity.class).putExtra("data", room.getName()).putExtra("title", "edit chat room name").
-								putExtra("editable", isCurrentOwner(room)),
-						REQUEST_CODE_EDIT_CHAT_ROOM_NAME);
-				break;
-			case R.id.rl_change_chatroom_detail:
-				startActivityForResult(new Intent(this, EditActivity.class).putExtra("data", room.getDescription()).putExtra("title", "edit chat room detail").
-								putExtra("editable", isCurrentOwner(room)),
-						REQUEST_CODE_EDIT_CHAT_ROOM_DESCRIPTION);
-				break;
-			case R.id.layout_group_announcement:
-				showAnnouncementDialog();
-				break;
-			default:
-				break;
+				}
+			}, true).show();
+		} else if (id == R.id.rl_change_chatroom_name) {
+			startActivityForResult(new Intent(this, EditActivity.class).putExtra("data", room.getName()).putExtra("title", "edit chat room name").
+							putExtra("editable", isCurrentOwner(room)),
+					REQUEST_CODE_EDIT_CHAT_ROOM_NAME);
+		} else if (id == R.id.rl_change_chatroom_detail) {
+			startActivityForResult(new Intent(this, EditActivity.class).putExtra("data", room.getDescription()).putExtra("title", "edit chat room detail").
+							putExtra("editable", isCurrentOwner(room)),
+					REQUEST_CODE_EDIT_CHAT_ROOM_DESCRIPTION);
+		} else if (id == R.id.layout_group_announcement) {
+			showAnnouncementDialog();
 		}
 	}
 
@@ -632,46 +626,33 @@ public class ChatRoomDetailsActivity extends BaseActivity implements OnClickList
 						@Override
 						public void run() {
 							try {
-								switch (v.getId()) {
-									case R.id.menu_item_add_admin:
-										EMClient.getInstance().chatroomManager().addChatRoomAdmin(roomId, operationUserId);
-										break;
-									case R.id.menu_item_rm_admin:
-										EMClient.getInstance().chatroomManager().removeChatRoomAdmin(roomId, operationUserId);
-										break;
-                                    case R.id.menu_item_remove_member: {
-                                            List<String> list = new ArrayList<String>();
-                                            list.add(operationUserId);
-                                            EMClient.getInstance().chatroomManager().removeChatRoomMembers(roomId, list);
-									}
-                                        break;
-									case R.id.menu_item_add_to_blacklist: {
-											List<String> list = new ArrayList<String>();
-											list.add(operationUserId);
-											EMClient.getInstance().chatroomManager().blockChatroomMembers(roomId, list);
-									}
-										break;
-									case R.id.menu_item_remove_from_blacklist: {
-											List<String> list1 = new ArrayList<String>();
-											list1.add(operationUserId);
-											EMClient.getInstance().chatroomManager().unblockChatRoomMembers(roomId, list1);
-									}
-										break;
-									case R.id.menu_item_mute:
-										List<String> muteMembers = new ArrayList<String>();
-										muteMembers.add(operationUserId);
-										EMClient.getInstance().chatroomManager().muteChatRoomMembers(roomId, muteMembers, 20 * 60 * 1000);
-										break;
-									case R.id.menu_item_unmute:
-										List<String> list = new ArrayList<String>();
-										list.add(operationUserId);
-										EMClient.getInstance().chatroomManager().unMuteChatRoomMembers(roomId, list);
-										break;
-									case R.id.menu_item_transfer_owner:
-										EMClient.getInstance().chatroomManager().changeOwner(roomId, operationUserId);
-										break;
-									default:
-										break;
+								int vId = v.getId();
+								if (vId == R.id.menu_item_add_admin) {
+									EMClient.getInstance().chatroomManager().addChatRoomAdmin(roomId, operationUserId);
+								} else if (vId == R.id.menu_item_rm_admin) {
+									EMClient.getInstance().chatroomManager().removeChatRoomAdmin(roomId, operationUserId);
+								} else if (vId == R.id.menu_item_remove_member) {
+									List<String> list = new ArrayList<String>();
+									list.add(operationUserId);
+									EMClient.getInstance().chatroomManager().removeChatRoomMembers(roomId, list);
+								} else if (vId == R.id.menu_item_add_to_blacklist) {
+									List<String> list = new ArrayList<String>();
+									list.add(operationUserId);
+									EMClient.getInstance().chatroomManager().blockChatroomMembers(roomId, list);
+								} else if (vId == R.id.menu_item_remove_from_blacklist) {
+									List<String> list1 = new ArrayList<String>();
+									list1.add(operationUserId);
+									EMClient.getInstance().chatroomManager().unblockChatRoomMembers(roomId, list1);
+								} else if (vId == R.id.menu_item_mute) {
+									List<String> muteMembers = new ArrayList<String>();
+									muteMembers.add(operationUserId);
+									EMClient.getInstance().chatroomManager().muteChatRoomMembers(roomId, muteMembers, 20 * 60 * 1000);
+								} else if (vId == R.id.menu_item_unmute) {
+									List<String> list = new ArrayList<String>();
+									list.add(operationUserId);
+									EMClient.getInstance().chatroomManager().unMuteChatRoomMembers(roomId, list);
+								} else if (vId == R.id.menu_item_transfer_owner) {
+									EMClient.getInstance().chatroomManager().changeOwner(roomId, operationUserId);
 								}
 								updateRoom();
 							} catch (final HyphenateException e) {

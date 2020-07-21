@@ -337,83 +337,86 @@ public class CallOptionActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.rl_switch_fix_video_resolution:
-                EaseSwitchButton swFixedVideoResolution = (EaseSwitchButton)findViewById(R.id.switch_fix_video_resolution);
-                if (swFixedVideoResolution.isSwitchOpen()) {
-                    EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(false);
-                    swFixedVideoResolution.closeSwitch();
-                    PreferenceManager.getInstance().setCallFixedVideoResolution(false);
+        int id = view.getId();
+        if (id == R.id.rl_switch_fix_video_resolution) {
+            EaseSwitchButton swFixedVideoResolution = (EaseSwitchButton) findViewById(R.id.switch_fix_video_resolution);
+            if (swFixedVideoResolution.isSwitchOpen()) {
+                EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(false);
+                swFixedVideoResolution.closeSwitch();
+                PreferenceManager.getInstance().setCallFixedVideoResolution(false);
 
-                } else {
-                    EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(true);
-                    swFixedVideoResolution.openSwitch();
-                    PreferenceManager.getInstance().setCallFixedVideoResolution(true);
+            } else {
+                EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(true);
+                swFixedVideoResolution.openSwitch();
+                PreferenceManager.getInstance().setCallFixedVideoResolution(true);
+            }
+        } else if (id == R.id.rl_switch_offline_call_push) {
+            EaseSwitchButton swOfflineCallPush = (EaseSwitchButton) findViewById(R.id.switch_offline_call_push);
+            if (swOfflineCallPush.isSwitchOpen()) {
+                EMClient.getInstance().callManager().getCallOptions().setIsSendPushIfOffline(false);
+                swOfflineCallPush.closeSwitch();
+                PreferenceManager.getInstance().setPushCall(false);
+            } else {
+                EMClient.getInstance().callManager().getCallOptions().setIsSendPushIfOffline(true);
+                swOfflineCallPush.openSwitch();
+                PreferenceManager.getInstance().setPushCall(true);
+            }
+        } else if (id == R.id.rl_switch_record_on_server) {
+            EaseSwitchButton swRecordOnServer = (EaseSwitchButton) findViewById(R.id.switch_record_on_server);
+            if (swRecordOnServer.isSwitchOpen()) {
+                swRecordOnServer.closeSwitch();
+                PreferenceManager.getInstance().setRecordOnServer(false);
+            } else {
+                swRecordOnServer.openSwitch();
+                PreferenceManager.getInstance().setRecordOnServer(true);
+            }
+        } else if (id == R.id.rl_switch_merge_stream) {
+            EaseSwitchButton swMergeStream = (EaseSwitchButton) findViewById(R.id.switch_merge_stream);
+            if (swMergeStream.isSwitchOpen()) {
+                swMergeStream.closeSwitch();
+                PreferenceManager.getInstance().setMergeStream(false);
+            } else {
+                swMergeStream.openSwitch();
+                PreferenceManager.getInstance().setMergeStream(true);
+            }
+        } else if (id == R.id.rl_switch_external_audioInput_resolution) {
+            EaseSwitchButton swExternalAudioInputResolution = (EaseSwitchButton) findViewById(R.id.switch_external_audioInput_resolution);
+            if (swExternalAudioInputResolution.isSwitchOpen()) {
+                swExternalAudioInputResolution.closeSwitch();
+                PreferenceManager.getInstance().setExternalAudioInputResolution(false);
+                int hz = PreferenceManager.getInstance().getCallAudioSampleRate();
+                if (hz == -1) {
+                    hz = 16000;
                 }
-                break;
-            case R.id.rl_switch_offline_call_push:
-                EaseSwitchButton swOfflineCallPush = (EaseSwitchButton)findViewById(R.id.switch_offline_call_push);
-                if (swOfflineCallPush.isSwitchOpen()) {
-                    EMClient.getInstance().callManager().getCallOptions().setIsSendPushIfOffline(false);
-                    swOfflineCallPush.closeSwitch();
-                    PreferenceManager.getInstance().setPushCall(false);
-                } else {
-                    EMClient.getInstance().callManager().getCallOptions().setIsSendPushIfOffline(true);
-                    swOfflineCallPush.openSwitch();
-                    PreferenceManager.getInstance().setPushCall(true);
-                }
-                break;
-            case R.id.rl_switch_record_on_server:
-                EaseSwitchButton swRecordOnServer = (EaseSwitchButton)findViewById(R.id.switch_record_on_server);
-                if (swRecordOnServer.isSwitchOpen()) {
-                    swRecordOnServer.closeSwitch();
-                    PreferenceManager.getInstance().setRecordOnServer(false);
-                } else {
-                    swRecordOnServer.openSwitch();
-                    PreferenceManager.getInstance().setRecordOnServer(true);
-                }
-                break;
-            case R.id.rl_switch_merge_stream:
-                EaseSwitchButton swMergeStream = (EaseSwitchButton)findViewById(R.id.switch_merge_stream);
-                if (swMergeStream.isSwitchOpen()) {
-                    swMergeStream.closeSwitch();
-                    PreferenceManager.getInstance().setMergeStream(false);
-                } else {
-                    swMergeStream.openSwitch();
-                    PreferenceManager.getInstance().setMergeStream(true);
-                }
-                break;
-            case R.id.rl_switch_external_audioInput_resolution:
-                 EaseSwitchButton swExternalAudioInputResolution = (EaseSwitchButton)findViewById(R.id.switch_external_audioInput_resolution);
-                 if(swExternalAudioInputResolution.isSwitchOpen()) {
-                     swExternalAudioInputResolution.closeSwitch();
-                     PreferenceManager.getInstance().setExternalAudioInputResolution(false);
-                     int hz = PreferenceManager.getInstance().getCallAudioSampleRate();
-                     if(hz == -1){
-                         hz = 16000;
-                     }
-                     EMClient.getInstance().callManager().getCallOptions().setExternalAudioParam(false,hz,1);
-                 }else {
-                     swExternalAudioInputResolution.openSwitch();
-                     PreferenceManager.getInstance().setExternalAudioInputResolution(true);
+                EMClient.getInstance().callManager().getCallOptions().setExternalAudioParam(false, hz, 1);
+            } else {
+                swExternalAudioInputResolution.openSwitch();
+                PreferenceManager.getInstance().setExternalAudioInputResolution(true);
 
-                     int hz = PreferenceManager.getInstance().getCallAudioSampleRate();
-                     if(hz == -1){
-                         hz = 16000;
-                     }
-                     EMClient.getInstance().callManager().getCallOptions().setExternalAudioParam(true,hz,1);
-                 }
-            case R.id.rl_switch_water_mark:
-                 EaseSwitchButton swWater_mark = (EaseSwitchButton)findViewById(R.id.switch_water_mark);
-                if (swWater_mark.isSwitchOpen()) {
-                    swWater_mark.closeSwitch();
-                    PreferenceManager.getInstance().setWatermarkResolution(false);
-                } else {
-                    swWater_mark.openSwitch();
-                    PreferenceManager.getInstance().setWatermarkResolution(true);
+                int hz = PreferenceManager.getInstance().getCallAudioSampleRate();
+                if (hz == -1) {
+                    hz = 16000;
                 }
-            default:
-                break;
+                EMClient.getInstance().callManager().getCallOptions().setExternalAudioParam(true, hz, 1);
+            }
+
+            EaseSwitchButton swWater_mark = (EaseSwitchButton) findViewById(R.id.switch_water_mark);
+            if (swWater_mark.isSwitchOpen()) {
+                swWater_mark.closeSwitch();
+                PreferenceManager.getInstance().setWatermarkResolution(false);
+            } else {
+                swWater_mark.openSwitch();
+                PreferenceManager.getInstance().setWatermarkResolution(true);
+            }
+        } else if (id == R.id.rl_switch_water_mark) {
+            EaseSwitchButton swWater_mark = (EaseSwitchButton) findViewById(R.id.switch_water_mark);
+            if (swWater_mark.isSwitchOpen()) {
+                swWater_mark.closeSwitch();
+                PreferenceManager.getInstance().setWatermarkResolution(false);
+            } else {
+                swWater_mark.openSwitch();
+                PreferenceManager.getInstance().setWatermarkResolution(true);
+            }
         }
     }
 

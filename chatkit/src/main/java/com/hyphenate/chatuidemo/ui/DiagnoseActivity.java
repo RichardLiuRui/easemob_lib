@@ -63,13 +63,8 @@ public class DiagnoseActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.button_uploadlog:
+		if (v.getId() == R.id.button_uploadlog) {
 			uploadlog();
-			break;
-
-		default:
-			break;
 		}
 
 	}

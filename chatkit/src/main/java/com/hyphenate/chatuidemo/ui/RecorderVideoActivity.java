@@ -223,14 +223,12 @@ public class RecorderVideoActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View view) {
-		switch (view.getId()) {
-		case R.id.switch_btn:
+		int id = view.getId();
+		if (id == R.id.switch_btn) {
 			switchCamera();
-			break;
-		case R.id.recorder_start:
-			// start recording
-		    if(!startRecording())
-		        return;
+		} else if (id == R.id.recorder_start) {// start recording
+			if (!startRecording())
+				return;
 			Toast.makeText(this, R.string.The_video_to_start, Toast.LENGTH_SHORT).show();
 			btn_switch.setVisibility(View.INVISIBLE);
 			btnStart.setVisibility(View.INVISIBLE);
@@ -238,9 +236,8 @@ public class RecorderVideoActivity extends BaseActivity implements
 			btnStop.setVisibility(View.VISIBLE);
 			chronometer.setBase(SystemClock.elapsedRealtime());
 			chronometer.start();
-			break;
-		case R.id.recorder_stop:
-		    btnStop.setEnabled(false);
+		} else if (id == R.id.recorder_stop) {
+			btnStop.setEnabled(false);
 			stopRecording();
 			btn_switch.setVisibility(View.VISIBLE);
 			chronometer.stop();
@@ -253,7 +250,7 @@ public class RecorderVideoActivity extends BaseActivity implements
 
 								@Override
 								public void onClick(DialogInterface dialog,
-										int which) {
+								                    int which) {
 									dialog.dismiss();
 									sendVideo(null);
 
@@ -264,20 +261,16 @@ public class RecorderVideoActivity extends BaseActivity implements
 
 								@Override
 								public void onClick(DialogInterface dialog,
-										int which) {
-								    if(localPath != null){
-								        File file = new File(localPath);
-								        if(file.exists())
-								            file.delete();
-								    }
-								    finish();
-									
+								                    int which) {
+									if (localPath != null) {
+										File file = new File(localPath);
+										if (file.exists())
+											file.delete();
+									}
+									finish();
+
 								}
 							}).setCancelable(false).show();
-			break;
-
-		default:
-			break;
 		}
 	}
 

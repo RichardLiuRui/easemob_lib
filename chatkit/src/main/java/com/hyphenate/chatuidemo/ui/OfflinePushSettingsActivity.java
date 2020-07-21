@@ -145,28 +145,25 @@ public class OfflinePushSettingsActivity extends BaseActivity implements Compoun
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.cb_no_disturb_on:
-                if(isChecked){
-                    noDisturbOff.setChecked(false);
-                    noDisturbInNight.setChecked(false);
-                    status = Status.ON;
-                }
-                break;
-            case R.id.cb_no_disturb_off:
-                if(isChecked){
-                    noDisturbOn.setChecked(false);
-                    noDisturbInNight.setChecked(false);
-                    status = Status.OFF;
-                }
-                break;
-            case R.id.cb_no_disturb_only_night:
-                if(isChecked){
-                    noDisturbOn.setChecked(false);
-                    noDisturbOff.setChecked(false);
-                    status = Status.ON_IN_NIGHT;
-                }
-                break;
+        int id = buttonView.getId();
+        if (id == R.id.cb_no_disturb_on) {
+            if (isChecked) {
+                noDisturbOff.setChecked(false);
+                noDisturbInNight.setChecked(false);
+                status = Status.ON;
+            }
+        } else if (id == R.id.cb_no_disturb_off) {
+            if (isChecked) {
+                noDisturbOn.setChecked(false);
+                noDisturbInNight.setChecked(false);
+                status = Status.OFF;
+            }
+        } else if (id == R.id.cb_no_disturb_only_night) {
+            if (isChecked) {
+                noDisturbOn.setChecked(false);
+                noDisturbOff.setChecked(false);
+                status = Status.ON_IN_NIGHT;
+            }
         }
     }
 

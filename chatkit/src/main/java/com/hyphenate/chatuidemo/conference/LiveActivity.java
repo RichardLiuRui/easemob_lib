@@ -263,51 +263,42 @@ public class LiveActivity extends BaseActivity implements EMConferenceListener {
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.btn_request_connect: // 申请视频连麦
-                    if (currentRole == EMConferenceManager.EMConferenceRole.Admin) return;
+            int id = view.getId();
+            if (id == R.id.btn_request_connect) { // 申请视频连麦
+                if (currentRole == EMConferenceManager.EMConferenceRole.Admin) return;
 
-                    if (btnState == STATE_AUDIENCE) { // 当前按钮状态是观众，需要变成主播
-                        if (currentRole == EMConferenceManager.EMConferenceRole.Audience) { // 发送消息，申请上麦
-                            String content = EMClient.getInstance().getCurrentUser() + " " + getString(R.string.alert_request_tobe_talker);
-                            sendRequestMessage(content, inviter, Constant.OP_REQUEST_TOBE_SPEAKER);
-                        } else { // 已经是主播，直接推流
-                            publish();
-                            setRequestBtnState(STATE_TALKER);
-                        }
-                    } else if (btnState == STATE_TALKER) { // 当前按钮状态是主播，需要下麦
-                        if (currentRole == EMConferenceManager.EMConferenceRole.Talker) { // 申请下麦
-                            // 下麦
-                            unpublish(conference.getPubStreamId(EMConferenceStream.StreamType.NORMAL));
-                            setRequestBtnState(STATE_AUDIENCE);
-                            // 请求管理员改变自己角色
-                            String content = EMClient.getInstance().getCurrentUser() + " " + getString(R.string.alert_request_tobe_audience);
-                            sendRequestMessage(content, inviter, Constant.OP_REQUEST_TOBE_AUDIENCE);
-                        }
+                if (btnState == STATE_AUDIENCE) { // 当前按钮状态是观众，需要变成主播
+                    if (currentRole == EMConferenceManager.EMConferenceRole.Audience) { // 发送消息，申请上麦
+                        String content = EMClient.getInstance().getCurrentUser() + " " + getString(R.string.alert_request_tobe_talker);
+                        sendRequestMessage(content, inviter, Constant.OP_REQUEST_TOBE_SPEAKER);
+                    } else { // 已经是主播，直接推流
+                        publish();
+                        setRequestBtnState(STATE_TALKER);
                     }
-                    break;
-                case R.id.btn_mic_switch:
-                    voiceSwitch();
-                    break;
-                case R.id.btn_speaker_switch:
-                    speakerSwitch();
-                    break;
-                case R.id.btn_camera_switch:
-                    videoSwitch();
-                    break;
-                case R.id.btn_desk_share:
-                    break;
-                case R.id.btn_change_camera_switch:
-                    changeCamera();
-                    break;
-                case R.id.btn_hangup:
-                    exitConference();
-                    break;
-                case R.id.btn_debug:
-                    break;
-                case R.id.btn_scale_mode: // 全屏状态下切换视频scale mode
-                    changeFullScreenScaleMode();
-                    break;
+                } else if (btnState == STATE_TALKER) { // 当前按钮状态是主播，需要下麦
+                    if (currentRole == EMConferenceManager.EMConferenceRole.Talker) { // 申请下麦
+                        // 下麦
+                        unpublish(conference.getPubStreamId(EMConferenceStream.StreamType.NORMAL));
+                        setRequestBtnState(STATE_AUDIENCE);
+                        // 请求管理员改变自己角色
+                        String content = EMClient.getInstance().getCurrentUser() + " " + getString(R.string.alert_request_tobe_audience);
+                        sendRequestMessage(content, inviter, Constant.OP_REQUEST_TOBE_AUDIENCE);
+                    }
+                }
+            } else if (id == R.id.btn_mic_switch) {
+                voiceSwitch();
+            } else if (id == R.id.btn_speaker_switch) {
+                speakerSwitch();
+            } else if (id == R.id.btn_camera_switch) {
+                videoSwitch();
+            } else if (id == R.id.btn_desk_share) {
+            } else if (id == R.id.btn_change_camera_switch) {
+                changeCamera();
+            } else if (id == R.id.btn_hangup) {
+                exitConference();
+            } else if (id == R.id.btn_debug) {
+            } else if (id == R.id.btn_scale_mode) { // 全屏状态下切换视频scale mode
+                changeFullScreenScaleMode();
             }
         }
     };

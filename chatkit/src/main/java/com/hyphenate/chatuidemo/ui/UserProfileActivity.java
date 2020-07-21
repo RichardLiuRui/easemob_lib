@@ -91,11 +91,10 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.user_head_avatar:
+		int id = v.getId();
+		if (id == R.id.user_head_avatar) {
 			uploadHeadPhoto();
-			break;
-		case R.id.rl_nickname:
+		} else if (id == R.id.rl_nickname) {
 			final EditText editText = new EditText(this);
 			new Builder(this).setTitle(R.string.setting_nickname).setIcon(android.R.drawable.ic_dialog_info).setView(editText)
 					.setPositiveButton(R.string.dl_ok, new DialogInterface.OnClickListener() {
@@ -110,9 +109,6 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 							updateRemoteNick(nickString);
 						}
 					}).setNegativeButton(R.string.dl_cancel, null).show();
-			break;
-		default:
-			break;
 		}
 
 	}

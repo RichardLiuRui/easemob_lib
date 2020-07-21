@@ -141,16 +141,12 @@ public class GroupSearchMessageActivity extends BaseActivity implements OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-        case R.id.tv_cancel:
+        int id = v.getId();
+        if (id == R.id.tv_cancel) {
             finish();
-            break;
-        case R.id.tv_search:
+        } else if (id == R.id.tv_search) {
             hideSoftKeyboard();
             searchMessages();
-            break;
-        default:
-            break;
         }
     }
     

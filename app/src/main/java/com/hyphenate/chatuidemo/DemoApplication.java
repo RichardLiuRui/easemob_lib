@@ -17,7 +17,6 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import com.hyphenate.chatuidemo.ui.UserActivityLifecycleCallbacks;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.push.EMPushHelper;
 import com.hyphenate.push.EMPushType;

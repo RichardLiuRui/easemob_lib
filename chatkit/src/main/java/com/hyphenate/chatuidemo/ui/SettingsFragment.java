@@ -337,192 +337,165 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.rl_switch_notification:
-				if (notifySwitch.isSwitchOpen()) {
-					notifySwitch.closeSwitch();
-					rl_switch_sound.setVisibility(View.GONE);
-					rl_switch_vibrate.setVisibility(View.GONE);
-					textview1.setVisibility(View.GONE);
-					textview2.setVisibility(View.GONE);
-					settingsModel.setSettingMsgNotification(false);
-				} else {
-					notifySwitch.openSwitch();
-					rl_switch_sound.setVisibility(View.VISIBLE);
-					rl_switch_vibrate.setVisibility(View.VISIBLE);
-					textview1.setVisibility(View.VISIBLE);
-					textview2.setVisibility(View.VISIBLE);
-					settingsModel.setSettingMsgNotification(true);
-				}
-				break;
-			case R.id.rl_switch_sound:
-				if (soundSwitch.isSwitchOpen()) {
-					soundSwitch.closeSwitch();
-					settingsModel.setSettingMsgSound(false);
-				} else {
-					soundSwitch.openSwitch();
-					settingsModel.setSettingMsgSound(true);
-				}
-				break;
-			case R.id.rl_switch_vibrate:
-				if (vibrateSwitch.isSwitchOpen()) {
-					vibrateSwitch.closeSwitch();
-					settingsModel.setSettingMsgVibrate(false);
-				} else {
-					vibrateSwitch.openSwitch();
-					settingsModel.setSettingMsgVibrate(true);
-				}
-				break;
-			case R.id.rl_switch_speaker:
-				if (speakerSwitch.isSwitchOpen()) {
-					speakerSwitch.closeSwitch();
-					settingsModel.setSettingMsgSpeaker(false);
-				} else {
-					speakerSwitch.openSwitch();
-					settingsModel.setSettingMsgVibrate(true);
-				}
-				break;
-			case R.id.rl_switch_chatroom_owner_leave:
-				if(ownerLeaveSwitch.isSwitchOpen()){
-					ownerLeaveSwitch.closeSwitch();
-					settingsModel.allowChatroomOwnerLeave(false);
-					chatOptions.allowChatroomOwnerLeave(false);
-				}else{
-					ownerLeaveSwitch.openSwitch();
-					settingsModel.allowChatroomOwnerLeave(true);
-					chatOptions.allowChatroomOwnerLeave(true);
-				}
-				break;
-			case R.id.rl_switch_delete_msg_when_exit_group:
-				if(switch_delete_msg_when_exit_group.isSwitchOpen()){
-					switch_delete_msg_when_exit_group.closeSwitch();
-					settingsModel.setDeleteMessagesAsExitGroup(false);
-					chatOptions.setDeleteMessagesAsExitGroup(false);
-				}else{
-					switch_delete_msg_when_exit_group.openSwitch();
-					settingsModel.setDeleteMessagesAsExitGroup(true);
-					chatOptions.setDeleteMessagesAsExitGroup(true);
-				}
-				break;
-			case R.id.rl_set_transfer_file_by_userself:
-				if(set_transfer_file_by_userself.isSwitchOpen()){
-					set_transfer_file_by_userself.closeSwitch();
-					settingsModel.setTransfeFileByUser(false);
-					chatOptions.setAutoTransferMessageAttachments(false);
-				}else{
-					set_transfer_file_by_userself.openSwitch();
-					settingsModel.setTransfeFileByUser(true);
-					chatOptions.setAutoTransferMessageAttachments(true);
-				}
-				break;
-			case R.id.rl_set_autodownload_thumbnail:
-				if(set_autodownload_thumbnail.isSwitchOpen()){
-					set_autodownload_thumbnail.closeSwitch();
-					settingsModel.setAutodownloadThumbnail(false);
-					chatOptions.setAutoDownloadThumbnail(false);
-				}else{
-					set_autodownload_thumbnail.openSwitch();
-					settingsModel.setAutodownloadThumbnail(true);
-					chatOptions.setAutoDownloadThumbnail(true);
-				}
-				break;
-			case R.id.rl_switch_auto_accept_group_invitation:
-				if(switch_auto_accept_group_invitation.isSwitchOpen()){
-					switch_auto_accept_group_invitation.closeSwitch();
-					settingsModel.setAutoAcceptGroupInvitation(false);
-					chatOptions.setAutoAcceptGroupInvitation(false);
-				}else{
-					switch_auto_accept_group_invitation.openSwitch();
-					settingsModel.setAutoAcceptGroupInvitation(true);
-					chatOptions.setAutoAcceptGroupInvitation(true);
-				}
-				break;
-			case R.id.rl_switch_adaptive_video_encode:
-				EMLog.d("switch", "" + !switch_adaptive_video_encode.isSwitchOpen());
-				if (switch_adaptive_video_encode.isSwitchOpen()){
-					switch_adaptive_video_encode.closeSwitch();
-					settingsModel.setAdaptiveVideoEncode(false);
-					EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(true);
+		int id = v.getId();
+		if (id == R.id.rl_switch_notification) {
+			if (notifySwitch.isSwitchOpen()) {
+				notifySwitch.closeSwitch();
+				rl_switch_sound.setVisibility(View.GONE);
+				rl_switch_vibrate.setVisibility(View.GONE);
+				textview1.setVisibility(View.GONE);
+				textview2.setVisibility(View.GONE);
+				settingsModel.setSettingMsgNotification(false);
+			} else {
+				notifySwitch.openSwitch();
+				rl_switch_sound.setVisibility(View.VISIBLE);
+				rl_switch_vibrate.setVisibility(View.VISIBLE);
+				textview1.setVisibility(View.VISIBLE);
+				textview2.setVisibility(View.VISIBLE);
+				settingsModel.setSettingMsgNotification(true);
+			}
+		} else if (id == R.id.rl_switch_sound) {
+			if (soundSwitch.isSwitchOpen()) {
+				soundSwitch.closeSwitch();
+				settingsModel.setSettingMsgSound(false);
+			} else {
+				soundSwitch.openSwitch();
+				settingsModel.setSettingMsgSound(true);
+			}
+		} else if (id == R.id.rl_switch_vibrate) {
+			if (vibrateSwitch.isSwitchOpen()) {
+				vibrateSwitch.closeSwitch();
+				settingsModel.setSettingMsgVibrate(false);
+			} else {
+				vibrateSwitch.openSwitch();
+				settingsModel.setSettingMsgVibrate(true);
+			}
+		} else if (id == R.id.rl_switch_speaker) {
+			if (speakerSwitch.isSwitchOpen()) {
+				speakerSwitch.closeSwitch();
+				settingsModel.setSettingMsgSpeaker(false);
+			} else {
+				speakerSwitch.openSwitch();
+				settingsModel.setSettingMsgVibrate(true);
+			}
+		} else if (id == R.id.rl_switch_chatroom_owner_leave) {
+			if (ownerLeaveSwitch.isSwitchOpen()) {
+				ownerLeaveSwitch.closeSwitch();
+				settingsModel.allowChatroomOwnerLeave(false);
+				chatOptions.allowChatroomOwnerLeave(false);
+			} else {
+				ownerLeaveSwitch.openSwitch();
+				settingsModel.allowChatroomOwnerLeave(true);
+				chatOptions.allowChatroomOwnerLeave(true);
+			}
+		} else if (id == R.id.rl_switch_delete_msg_when_exit_group) {
+			if (switch_delete_msg_when_exit_group.isSwitchOpen()) {
+				switch_delete_msg_when_exit_group.closeSwitch();
+				settingsModel.setDeleteMessagesAsExitGroup(false);
+				chatOptions.setDeleteMessagesAsExitGroup(false);
+			} else {
+				switch_delete_msg_when_exit_group.openSwitch();
+				settingsModel.setDeleteMessagesAsExitGroup(true);
+				chatOptions.setDeleteMessagesAsExitGroup(true);
+			}
+		} else if (id == R.id.rl_set_transfer_file_by_userself) {
+			if (set_transfer_file_by_userself.isSwitchOpen()) {
+				set_transfer_file_by_userself.closeSwitch();
+				settingsModel.setTransfeFileByUser(false);
+				chatOptions.setAutoTransferMessageAttachments(false);
+			} else {
+				set_transfer_file_by_userself.openSwitch();
+				settingsModel.setTransfeFileByUser(true);
+				chatOptions.setAutoTransferMessageAttachments(true);
+			}
+		} else if (id == R.id.rl_set_autodownload_thumbnail) {
+			if (set_autodownload_thumbnail.isSwitchOpen()) {
+				set_autodownload_thumbnail.closeSwitch();
+				settingsModel.setAutodownloadThumbnail(false);
+				chatOptions.setAutoDownloadThumbnail(false);
+			} else {
+				set_autodownload_thumbnail.openSwitch();
+				settingsModel.setAutodownloadThumbnail(true);
+				chatOptions.setAutoDownloadThumbnail(true);
+			}
+		} else if (id == R.id.rl_switch_auto_accept_group_invitation) {
+			if (switch_auto_accept_group_invitation.isSwitchOpen()) {
+				switch_auto_accept_group_invitation.closeSwitch();
+				settingsModel.setAutoAcceptGroupInvitation(false);
+				chatOptions.setAutoAcceptGroupInvitation(false);
+			} else {
+				switch_auto_accept_group_invitation.openSwitch();
+				settingsModel.setAutoAcceptGroupInvitation(true);
+				chatOptions.setAutoAcceptGroupInvitation(true);
+			}
+		} else if (id == R.id.rl_switch_adaptive_video_encode) {
+			EMLog.d("switch", "" + !switch_adaptive_video_encode.isSwitchOpen());
+			if (switch_adaptive_video_encode.isSwitchOpen()) {
+				switch_adaptive_video_encode.closeSwitch();
+				settingsModel.setAdaptiveVideoEncode(false);
+				EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(true);
 
-				}else{
-					switch_adaptive_video_encode.openSwitch();
-					settingsModel.setAdaptiveVideoEncode(true);
-					EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(false);
-				}
-				break;
-			case R.id.btn_logout:
-				logout();
-				break;
-			case R.id.ll_black_list:
-				startActivity(new Intent(getActivity(), BlacklistActivity.class));
-				break;
-			case R.id.ll_diagnose:
-				startActivity(new Intent(getActivity(), DiagnoseActivity.class));
-				break;
-			case R.id.ll_set_push_nick:
-				startActivity(new Intent(getActivity(), OfflinePushNickActivity.class));
-				break;
-			case R.id.ll_call_option:
-				startActivity(new Intent(getActivity(), CallOptionActivity.class));
-				break;
-			case R.id.ll_multi_device_management:
-				startActivity(new Intent(getActivity(), MultiDeviceActivity.class));
-				break;
-			case R.id.ll_user_profile:
-				startActivity(new Intent(getActivity(), UserProfileActivity.class).putExtra("setting", true)
-						.putExtra("username", EMClient.getInstance().getCurrentUser()));
-				break;
-			case R.id.switch_custom_server:
-				if(customServerSwitch.isSwitchOpen()){
-					customServerSwitch.closeSwitch();
-					settingsModel.enableCustomServer(false);
-				}else{
-					customServerSwitch.openSwitch();
-					settingsModel.enableCustomServer(true);
-				}
-				break;
-			case R.id.switch_custom_appkey:
-				if(customAppkeySwitch.isSwitchOpen()){
-					customAppkeySwitch.closeSwitch();
-					settingsModel.enableCustomAppkey(false);
-				}else{
-					customAppkeySwitch.openSwitch();
-					settingsModel.enableCustomAppkey(true);
-				}
-				edit_custom_appkey.setEnabled(customAppkeySwitch.isSwitchOpen());
-				break;
-			case R.id.rl_msg_roaming:
-				if (switch_msg_Roaming.isSwitchOpen()) {
-					switch_msg_Roaming.closeSwitch();
-					settingsModel.setMsgRoaming(false);
-				} else {
-					switch_msg_Roaming.openSwitch();
-					settingsModel.setMsgRoaming(true);
-				}
-				break;
-			case R.id.rl_custom_server:
-				startActivity(new Intent(getActivity(), SetServersActivity.class));
-				break;
-			case R.id.rl_push_settings:
-				startActivity(new Intent(getActivity(), OfflinePushSettingsActivity.class));
-				break;
-			case R.id.rl_mail_log:
-				sendLogThroughMail();
-				break;
-			case R.id.ll_service_check:
-				startActivity(new Intent(getActivity(), ServiceCheckActivity.class));
-				break;
-			case R.id.rl_msg_typing:
-				if (switch_msg_typing.isSwitchOpen()) {
-					switch_msg_typing.closeSwitch();
-					settingsModel.showMsgTyping(false);
-				} else {
-					switch_msg_typing.openSwitch();
-					settingsModel.showMsgTyping(true);
-				}
-				break;
-			default:
-				break;
+			} else {
+				switch_adaptive_video_encode.openSwitch();
+				settingsModel.setAdaptiveVideoEncode(true);
+				EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(false);
+			}
+		} else if (id == R.id.btn_logout) {
+			logout();
+		} else if (id == R.id.ll_black_list) {
+			startActivity(new Intent(getActivity(), BlacklistActivity.class));
+		} else if (id == R.id.ll_diagnose) {
+			startActivity(new Intent(getActivity(), DiagnoseActivity.class));
+		} else if (id == R.id.ll_set_push_nick) {
+			startActivity(new Intent(getActivity(), OfflinePushNickActivity.class));
+		} else if (id == R.id.ll_call_option) {
+			startActivity(new Intent(getActivity(), CallOptionActivity.class));
+		} else if (id == R.id.ll_multi_device_management) {
+			startActivity(new Intent(getActivity(), MultiDeviceActivity.class));
+		} else if (id == R.id.ll_user_profile) {
+			startActivity(new Intent(getActivity(), UserProfileActivity.class).putExtra("setting", true)
+					.putExtra("username", EMClient.getInstance().getCurrentUser()));
+		} else if (id == R.id.switch_custom_server) {
+			if (customServerSwitch.isSwitchOpen()) {
+				customServerSwitch.closeSwitch();
+				settingsModel.enableCustomServer(false);
+			} else {
+				customServerSwitch.openSwitch();
+				settingsModel.enableCustomServer(true);
+			}
+		} else if (id == R.id.switch_custom_appkey) {
+			if (customAppkeySwitch.isSwitchOpen()) {
+				customAppkeySwitch.closeSwitch();
+				settingsModel.enableCustomAppkey(false);
+			} else {
+				customAppkeySwitch.openSwitch();
+				settingsModel.enableCustomAppkey(true);
+			}
+			edit_custom_appkey.setEnabled(customAppkeySwitch.isSwitchOpen());
+		} else if (id == R.id.rl_msg_roaming) {
+			if (switch_msg_Roaming.isSwitchOpen()) {
+				switch_msg_Roaming.closeSwitch();
+				settingsModel.setMsgRoaming(false);
+			} else {
+				switch_msg_Roaming.openSwitch();
+				settingsModel.setMsgRoaming(true);
+			}
+		} else if (id == R.id.rl_custom_server) {
+			startActivity(new Intent(getActivity(), SetServersActivity.class));
+		} else if (id == R.id.rl_push_settings) {
+			startActivity(new Intent(getActivity(), OfflinePushSettingsActivity.class));
+		} else if (id == R.id.rl_mail_log) {
+			sendLogThroughMail();
+		} else if (id == R.id.ll_service_check) {
+			startActivity(new Intent(getActivity(), ServiceCheckActivity.class));
+		} else if (id == R.id.rl_msg_typing) {
+			if (switch_msg_typing.isSwitchOpen()) {
+				switch_msg_typing.closeSwitch();
+				settingsModel.showMsgTyping(false);
+			} else {
+				switch_msg_typing.openSwitch();
+				settingsModel.showMsgTyping(true);
+			}
 		}
 	}
 

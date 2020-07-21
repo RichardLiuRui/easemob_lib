@@ -578,58 +578,42 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.rl_switch_block_groupmsg: // 屏蔽或取消屏蔽群组
-				toggleBlockGroup();
-				break;
+		int id = v.getId();
+		if (id == R.id.rl_switch_block_groupmsg) { // 屏蔽或取消屏蔽群组
+			toggleBlockGroup();
+		} else if (id == R.id.clear_all_history) { // 清空聊天记录
+			String st9 = getResources().getString(R.string.sure_to_empty_this);
+			new EaseAlertDialog(GroupDetailsActivity.this, null, st9, null, new AlertDialogUser() {
 
-			case R.id.clear_all_history: // 清空聊天记录
-				String st9 = getResources().getString(R.string.sure_to_empty_this);
-				new EaseAlertDialog(GroupDetailsActivity.this, null, st9, null, new AlertDialogUser() {
-
-					@Override
-					public void onResult(boolean confirmed, Bundle bundle) {
-						if(confirmed){
-							clearGroupHistory();
-						}
+				@Override
+				public void onResult(boolean confirmed, Bundle bundle) {
+					if (confirmed) {
+						clearGroupHistory();
 					}
-				}, true).show();
-
-				break;
-
-			case R.id.rl_change_group_name:
-				startActivityForResult(new Intent(this, EditActivity.class).putExtra("data", group.getGroupName()).putExtra("editable", isCurrentOwner(group)),
-						REQUEST_CODE_EDIT_GROUPNAME);
-				break;
-			case R.id.rl_change_group_description:
-				startActivityForResult(new Intent(this, EditActivity.class).putExtra("data", group.getDescription()).
-						putExtra("title", getString(R.string.change_the_group_description)).putExtra("editable", isCurrentOwner(group)),
-						REQUEST_CODE_EDIT_GROUP_DESCRIPTION);
-				break;
-			case R.id.rl_search:
-				startActivity(new Intent(this, GroupSearchMessageActivity.class).putExtra("groupId", groupId));
-
-				break;
-			case R.id.rl_switch_block_offline_message:
-				toggleBlockOfflineMsg();
-				break;
-			case R.id.layout_group_announcement:
-				showAnnouncementDialog();
-				break;
+				}
+			}, true).show();
+		} else if (id == R.id.rl_change_group_name) {
+			startActivityForResult(new Intent(this, EditActivity.class).putExtra("data", group.getGroupName()).putExtra("editable", isCurrentOwner(group)),
+					REQUEST_CODE_EDIT_GROUPNAME);
+		} else if (id == R.id.rl_change_group_description) {
+			startActivityForResult(new Intent(this, EditActivity.class).putExtra("data", group.getDescription()).
+							putExtra("title", getString(R.string.change_the_group_description)).putExtra("editable", isCurrentOwner(group)),
+					REQUEST_CODE_EDIT_GROUP_DESCRIPTION);
+		} else if (id == R.id.rl_search) {
+			startActivity(new Intent(this, GroupSearchMessageActivity.class).putExtra("groupId", groupId));
+		} else if (id == R.id.rl_switch_block_offline_message) {
+			toggleBlockOfflineMsg();
+		} else if (id == R.id.layout_group_announcement) {
+			showAnnouncementDialog();
 			// To send group ack message.
-			case R.id.layout_group_notification:
-				setResult(RESULT_CODE_SEND_GROUP_NOTIFICATION);
-				finish();
-				break;
-			case R.id.layout_share_files:
-				startActivity(new Intent(this, SharedFilesActivity.class).putExtra("groupId", groupId));
-				break;
-			case R.id.rl_change_group_extension:
-				startActivityForResult(new Intent(this, EditActivity.class).putExtra("data", group.getExtension()).
-						putExtra("title", getString(R.string.change_the_group_extension)).putExtra("editable", isCurrentOwner(group)), REQUEST_CODE_EDIT_GROUP_EXTENSION);
-				break;
-			default:
-				break;
+		} else if (id == R.id.layout_group_notification) {
+			setResult(RESULT_CODE_SEND_GROUP_NOTIFICATION);
+			finish();
+		} else if (id == R.id.layout_share_files) {
+			startActivity(new Intent(this, SharedFilesActivity.class).putExtra("groupId", groupId));
+		} else if (id == R.id.rl_change_group_extension) {
+			startActivityForResult(new Intent(this, EditActivity.class).putExtra("data", group.getExtension()).
+					putExtra("title", getString(R.string.change_the_group_extension)).putExtra("editable", isCurrentOwner(group)), REQUEST_CODE_EDIT_GROUP_EXTENSION);
 		}
 
 	}
@@ -850,37 +834,27 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 							@Override
 							public void run() {
 								try {
-									switch (v.getId()) {
-										case R.id.menu_item_add_admin:
-											EMClient.getInstance().groupManager().addGroupAdmin(groupId, operationUserId);
-											break;
-										case R.id.menu_item_rm_admin:
-											EMClient.getInstance().groupManager().removeGroupAdmin(groupId, operationUserId);
-											break;
-										case R.id.menu_item_remove_member:
-											EMClient.getInstance().groupManager().removeUserFromGroup(groupId, operationUserId);
-											break;
-										case R.id.menu_item_add_to_blacklist:
-											EMClient.getInstance().groupManager().blockUser(groupId, operationUserId);
-                                            break;
-										case R.id.menu_item_remove_from_blacklist:
-											EMClient.getInstance().groupManager().unblockUser(groupId, operationUserId);
-											break;
-										case R.id.menu_item_mute:
-											List<String> muteMembers = new ArrayList<String>();
-											muteMembers.add(operationUserId);
-											EMClient.getInstance().groupManager().muteGroupMembers(groupId, muteMembers, 20 * 60 * 1000);
-											break;
-										case R.id.menu_item_unmute:
-											List<String> list = new ArrayList<String>();
-											list.add(operationUserId);
-											EMClient.getInstance().groupManager().unMuteGroupMembers(groupId, list);
-											break;
-										case R.id.menu_item_transfer_owner:
-											EMClient.getInstance().groupManager().changeOwner(groupId, operationUserId);
-											break;
-										default:
-											break;
+									int vId = v.getId();
+									if (vId == R.id.menu_item_add_admin) {
+										EMClient.getInstance().groupManager().addGroupAdmin(groupId, operationUserId);
+									} else if (vId == R.id.menu_item_rm_admin) {
+										EMClient.getInstance().groupManager().removeGroupAdmin(groupId, operationUserId);
+									} else if (vId == R.id.menu_item_remove_member) {
+										EMClient.getInstance().groupManager().removeUserFromGroup(groupId, operationUserId);
+									} else if (vId == R.id.menu_item_add_to_blacklist) {
+										EMClient.getInstance().groupManager().blockUser(groupId, operationUserId);
+									} else if (vId == R.id.menu_item_remove_from_blacklist) {
+										EMClient.getInstance().groupManager().unblockUser(groupId, operationUserId);
+									} else if (vId == R.id.menu_item_mute) {
+										List<String> muteMembers = new ArrayList<String>();
+										muteMembers.add(operationUserId);
+										EMClient.getInstance().groupManager().muteGroupMembers(groupId, muteMembers, 20 * 60 * 1000);
+									} else if (vId == R.id.menu_item_unmute) {
+										List<String> list = new ArrayList<String>();
+										list.add(operationUserId);
+										EMClient.getInstance().groupManager().unMuteGroupMembers(groupId, list);
+									} else if (vId == R.id.menu_item_transfer_owner) {
+										EMClient.getInstance().groupManager().changeOwner(groupId, operationUserId);
 									}
 									updateGroup();
 								} catch (final HyphenateException e) {

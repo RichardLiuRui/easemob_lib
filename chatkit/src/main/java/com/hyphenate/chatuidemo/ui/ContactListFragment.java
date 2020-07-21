@@ -179,29 +179,18 @@ public class ContactListFragment extends EaseContactListFragment {
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-            case R.id.application_item:
-                // 进入申请与通知页面
-                startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
-                break;
-            case R.id.group_item:
-                // 进入群聊列表页面
-                startActivity(new Intent(getActivity(), GroupsActivity.class));
-                break;
-            case R.id.chat_room_item:
-                //进入聊天室列表页面
-                startActivity(new Intent(getActivity(), PublicChatRoomsActivity.class));
-                break;
-            case R.id.robot_item:
-                //进入Robot列表页面
-                startActivity(new Intent(getActivity(), RobotsActivity.class));
-                break;
-            case R.id.conference_item: // 创建音视频会议
-                ConferenceActivity.startConferenceCall(getActivity(), null);
-                break;
-            default:
-                break;
-            }
+	        int id = v.getId();
+	        if (id == R.id.application_item) {// 进入申请与通知页面
+		        startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
+	        } else if (id == R.id.group_item) {// 进入群聊列表页面
+		        startActivity(new Intent(getActivity(), GroupsActivity.class));
+	        } else if (id == R.id.chat_room_item) {//进入聊天室列表页面
+		        startActivity(new Intent(getActivity(), PublicChatRoomsActivity.class));
+	        } else if (id == R.id.robot_item) {//进入Robot列表页面
+		        startActivity(new Intent(getActivity(), RobotsActivity.class));
+	        } else if (id == R.id.conference_item) { // 创建音视频会议
+		        ConferenceActivity.startConferenceCall(getActivity(), null);
+	        }
         }
 	    
 	}

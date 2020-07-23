@@ -56,5 +56,12 @@ public class CommonUtils {
 		void onDeleteClick(EMConversation conversation);
 	}
 	
-	
+	//发送文本消息
+	public static OnSendTxtMessageListener onSendTxtMessageListener;
+	public static void setOnSendTxtMessageListener(OnSendTxtMessageListener listener) {
+		onSendTxtMessageListener = listener;
+	}
+	public interface OnSendTxtMessageListener{
+		void onSendMessage(String userName,String content);
+	}
 }

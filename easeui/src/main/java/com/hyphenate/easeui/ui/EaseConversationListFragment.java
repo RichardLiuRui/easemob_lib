@@ -3,26 +3,20 @@ package com.hyphenate.easeui.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
-import com.baidu.platform.comapi.map.E;
-import com.hyphenate.EMCallBack;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMConversationListener;
 import com.hyphenate.EMError;
@@ -33,7 +27,6 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.CommonUtils;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.widget.EaseConversationList;
-import com.hyphenate.exceptions.HyphenateException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,9 +81,9 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 
 	@Override
 	protected void setUpView() {
-		conversationList.addAll(fristLoadConversationList());
+		conversationList.addAll(loadConversationList());
 		conversationListView.init(conversationList);
-
+		
 		if (listItemClickListener != null) {
 			conversationListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -137,7 +130,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 			}
 		});
 	}
-
+	
 
 	protected EMConnectionListener connectionListener = new EMConnectionListener() {
 
@@ -234,73 +227,40 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 		for (Pair<Long, EMConversation> sortItem : sortList) {
 			list.add(sortItem.second);
 		}
-
-
-		return list;
-	}
-
-	/**
-	 * load conversation list首次加载
-	 *
-	 * @return +
-	 */
-	protected List<EMConversation> fristLoadConversationList() {
-		// get all conversations
-		Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
-		List<Pair<Long, EMConversation>> sortList = new ArrayList<Pair<Long, EMConversation>>();
-		/**
-		 * lastMsgTime will change if there is new message during sorting
-		 * so use synchronized to make sure timestamp of last message won't change.
-		 */
-		synchronized (conversations) {
-			for (EMConversation conversation : conversations.values()) {
-				if (conversation.getAllMessages().size() != 0) {
-					sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+		//todo 当前为观众时添加当前主播为第一条
+		CommonUtils.setRole(CommonUtils.ANCHOR);
+		if (CommonUtils.type == CommonUtils.AUDIENCE) { 
+			//判断会话列表是否包含当前主播
+			boolean contains = false;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+					contains = true;
+					break;
+				}
+			}
+			//不包含  发送一条空消息
+			if (!contains) {
+				Log.e("111", "不包含");
+				EMMessage customMessage = EMMessage.createSendMessage(EMMessage.Type.CUSTOM);
+				EMCustomMessageBody customBody = new EMCustomMessageBody("top");
+				customMessage.addBody(customBody);
+				customMessage.setTo(CommonUtils.anchorAccount);
+				EMClient.getInstance().chatManager().sendMessage(customMessage);
+			}
+			//将当前主播显示在第一条
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+					EMConversation emConversation = list.get(i);
+					list.remove(i);
+					list.add(0, emConversation);
 				}
 			}
 		}
-		try {
-			// Internal is TimSort algorithm, has bug
-			sortConversationByLastChatTime(sortList);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		List<EMConversation> list = new ArrayList<EMConversation>();
-		for (Pair<Long, EMConversation> sortItem : sortList) {
-			list.add(sortItem.second);
-		}
-
-		//判断会话列表是否包含当前主播
-		boolean contains = false;
-		for (int i=0;i<list.size();i++) {
-			if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
-				contains = true;
-				break;
-			}
-		}
 		
-		//不包含  发送一条空消息
-		if (!contains) {
-			Log.e("111","不包含");
-			EMMessage customMessage = EMMessage.createSendMessage(EMMessage.Type.CUSTOM);
-			EMCustomMessageBody customBody = new EMCustomMessageBody("top");
-			customMessage.addBody(customBody);
-			customMessage.setTo(CommonUtils.anchorAccount);
-			EMClient.getInstance().chatManager().sendMessage(customMessage);
 
-
-			
-		}
-		//将当前主播显示在第一条
-		for (int i=0; i<list.size();i++) {
-			if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
-				EMConversation emConversation = list.get(i);
-				list.remove(i);
-				list.add(0,emConversation);
-			}
-		}
 		return list;
 	}
+	
 	/**
 	 * sort conversations according time stamp of last message
 	 *

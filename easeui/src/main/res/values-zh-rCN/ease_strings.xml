@@ -327,4 +327,5 @@
 
     <string name="custom_message">自定义消息: %1$s</string>
     <string name="str_private_letter">私信</string>
+    <string name="str_conversation_desc">hi,快来跟我聊聊吧</string>
 </resources>

@@ -61,11 +61,13 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     protected int primarySize;
     protected int secondarySize;
     protected float timeSize;
+    private Context context;
     private final ViewBinderHelper binderHelper = new ViewBinderHelper();
     public EaseConversationAdapter(Context context, int resource,
                                    List<EMConversation> objects) {
         super(context, resource, objects);
         conversationList = objects;
+        this.context = context;
         copyConversationList = new ArrayList<EMConversation>();
         copyConversationList.addAll(objects);
     }
@@ -107,7 +109,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         if (holder == null) {
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.unreadLabel = (TextView) convertView.findViewById(R.id.unread_msg_number);
+            holder.unreadLabel = convertView.findViewById(R.id.unread_msg_number);
             holder.message = (TextView) convertView.findViewById(R.id.message);
             holder.time = (TextView) convertView.findViewById(R.id.time);
             holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
@@ -224,16 +226,25 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             }
         });
         //todo 主播第一条展示
-        if (conversation.conversationId().equals(CommonUtils.anchorAccount)) {
-            EMMessage lastMessage = conversation.getLastMessage();
+        if (CommonUtils.type == CommonUtils.AUDIENCE) {
+            if (conversation.conversationId().equals(CommonUtils.anchorAccount)) {
+                EMMessage lastMessage = conversation.getLastMessage();
+                if (lastMessage.getType() == EMMessage.Type.CUSTOM) {
+                    holder.message.setText(context.getResources().getString(R.string.str_conversation_desc));
+                    holder.ll_time_num.setVisibility(View.GONE);
+                    holder.iv_private_letter.setVisibility(View.VISIBLE);
+                }
+            } else {
+                holder.ll_time_num.setVisibility(View.VISIBLE);
+                holder.iv_private_letter.setVisibility(View.GONE);
+            }
+        }
+        EMMessage lastMessage = conversation.getLastMessage();
+        if (lastMessage != null) {
             if (lastMessage.getType() == EMMessage.Type.CUSTOM) {
                 holder.message.setText("");
-                holder.ll_time_num.setVisibility(View.GONE);
-                holder.iv_private_letter.setVisibility(View.VISIBLE);
+                
             }
-        } else {
-            holder.ll_time_num.setVisibility(View.VISIBLE);
-            holder.iv_private_letter.setVisibility(View.GONE);
         }
         return convertView;
     }

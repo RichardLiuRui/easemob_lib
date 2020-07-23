@@ -99,6 +99,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 			// you should not call getAllMessages() in UI thread
 			// otherwise there is problem when refreshing UI and there is new message arrive
 			java.util.List<EMMessage> var = conversation.getAllMessages();
+			//todo  将自定义消息过滤  
 			for (int i=0;i<var.size();i++) {
 				Log.e("111",var.get(i).getType().toString());
 				if (var.get(i).getType() == EMMessage.Type.CUSTOM) {

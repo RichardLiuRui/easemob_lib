@@ -25,8 +25,6 @@ public class ChatActivity extends BaseActivity{
         activityInstance = this;
         //get user id or group id
         toChatUsername = getIntent().getExtras().getString("userId");
-        CommonUtils.type = getIntent().getExtras().getInt("type");
-        CommonUtils.type = 1;
         //use EaseChatFratFragment
         chatFragment = new ChatFragment();
         //pass parameters to chat fragment

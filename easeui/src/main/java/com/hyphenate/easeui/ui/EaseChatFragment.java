@@ -42,6 +42,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.chat.adapter.EMAChatRoomManagerListener;
+import com.hyphenate.easeui.CommonUtils;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.R;
@@ -207,6 +208,14 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
             @Override
             public void onSendMessage(String content) {
+                //todo 发送消息  观众需要接口回调调用service接口发送消息
+                if (CommonUtils.type == CommonUtils.AUDIENCE) {
+                    CommonUtils.OnSendTxtMessageListener listener = CommonUtils.onSendTxtMessageListener;
+                    if (listener != null) {
+                        listener.onSendMessage(toChatUsername,content);
+                    }
+                    return;
+                }
                 sendTextMessage(content);
             }
 

@@ -17,6 +17,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -98,6 +99,12 @@ public class EaseMessageAdapter extends BaseAdapter{
 			// you should not call getAllMessages() in UI thread
 			// otherwise there is problem when refreshing UI and there is new message arrive
 			java.util.List<EMMessage> var = conversation.getAllMessages();
+			for (int i=0;i<var.size();i++) {
+				Log.e("111",var.get(i).getType().toString());
+				if (var.get(i).getType() == EMMessage.Type.CUSTOM) {
+					var.remove(i);
+				}
+			}
 			messages = var.toArray(new EMMessage[var.size()]);
 			conversation.markAllMessagesAsRead();
 			notifyDataSetChanged();
@@ -250,6 +257,7 @@ public class EaseMessageAdapter extends BaseAdapter{
         	presenter = new EaseChatVideoPresenter();
             break;
 		case CUSTOM:
+			//todo 自定义消息
 			presenter = new EaseChatCustomPresenter();
 		    break;
         default:
@@ -267,14 +275,22 @@ public class EaseMessageAdapter extends BaseAdapter{
 		EaseChatRowPresenter presenter = null;
 
 		if (convertView == null) {
-			presenter = createChatRowPresenter(message, position);
-			convertView = presenter.createChatRow(context, message, position, this);
-			convertView.setTag(presenter);
+			if (message != null) {
+				presenter = createChatRowPresenter(message, position);
+				if (presenter != null) {
+					convertView = presenter.createChatRow(context, message, position, this);
+					convertView.setTag(presenter);
+				}
+				
+			}
+			
 		} else {
 			presenter = (EaseChatRowPresenter) convertView.getTag();
 		}
 
-		presenter.setup(message, position, itemClickListener, itemStyle);
+		if (presenter != null) {
+			presenter.setup(message, position, itemClickListener, itemStyle);
+		}
 
 		return convertView;
 	}

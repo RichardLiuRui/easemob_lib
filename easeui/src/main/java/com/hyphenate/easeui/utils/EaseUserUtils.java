@@ -7,10 +7,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.hyphenate.easeui.CommonUtils;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.EaseUI.EaseUserProfileProvider;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.model.UserAvatarBean;
+
+import java.util.List;
 
 public class EaseUserUtils {
     
@@ -37,21 +41,32 @@ public class EaseUserUtils {
      * @param username
      */
     public static void setUserAvatar(Context context, String username, ImageView imageView){
-    	EaseUser user = getUserInfo(username);
-        if(user != null && user.getAvatar() != null){
-            try {
-                int avatarResId = Integer.parseInt(user.getAvatar());
-                Glide.with(context).load(avatarResId).into(imageView);
-            } catch (Exception e) {
-                //use default avatar
-                Glide.with(context).load(user.getAvatar())
-                        .apply(RequestOptions.placeholderOf(R.drawable.ease_default_avatar)
-                                .diskCacheStrategy(DiskCacheStrategy.ALL))
-                        .into(imageView);
-            }
-        }else{
-            Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
-        }
+    	//todo 设置用户头像
+	    if (CommonUtils.userAvatarBean != null && CommonUtils.userAvatarBean.getList() != null && CommonUtils.userAvatarBean.getList().size() > 0) {
+		    List<UserAvatarBean.UserAvatar> list = CommonUtils.userAvatarBean.getList();
+		    for (int i=0;i<list.size();i++) {
+			    if (list.get(i).getImAccount().equals(username)) {
+				    Glide.with(context).load(list.get(i).getAvatarUrl()).into(imageView);
+			    }
+		    }
+	    } else{
+		    Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
+	    }
+//    	EaseUser user = getUserInfo(username);
+//        if(user != null && user.getAvatar() != null){
+//            try {
+//                int avatarResId = Integer.parseInt(user.getAvatar());
+//                Glide.with(context).load(avatarResId).into(imageView);
+//            } catch (Exception e) {
+//                //use default avatar
+//                Glide.with(context).load(user.getAvatar())
+//                        .apply(RequestOptions.placeholderOf(R.drawable.ease_default_avatar)
+//                                .diskCacheStrategy(DiskCacheStrategy.ALL))
+//                        .into(imageView);
+//            }
+//        }else{
+//            Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
+//        }
     }
     
     /**

@@ -1,14 +1,20 @@
 package com.hyphenate.easeui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
@@ -19,11 +25,14 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.CommonUtils;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.domain.EaseAvatarOptions;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
+import com.hyphenate.easeui.swipereveallayout.SwipeRevealLayout;
+import com.hyphenate.easeui.swipereveallayout.ViewBinderHelper;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
@@ -52,13 +61,23 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     protected int primarySize;
     protected int secondarySize;
     protected float timeSize;
-
+    private final ViewBinderHelper binderHelper = new ViewBinderHelper();
     public EaseConversationAdapter(Context context, int resource,
                                    List<EMConversation> objects) {
         super(context, resource, objects);
         conversationList = objects;
         copyConversationList = new ArrayList<EMConversation>();
         copyConversationList.addAll(objects);
+    }
+    public void saveStates(Bundle outState) {
+        binderHelper.saveStates(outState);
+    }
+
+    /**
+     * Only if you need to restore open/close state when the orientation is changed.
+     */
+    public void restoreStates(Bundle inState) {
+        binderHelper.restoreStates(inState);
     }
 
     @Override
@@ -93,17 +112,23 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.time = (TextView) convertView.findViewById(R.id.time);
             holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
             holder.msgState = convertView.findViewById(R.id.msg_state);
-            holder.list_itease_layout = (RelativeLayout) convertView.findViewById(R.id.list_itease_layout);
+            holder.list_itease_layout = (FrameLayout) convertView.findViewById(R.id.list_itease_layout);
+            holder.swipeRevealLayout = convertView.findViewById(R.id.chat_swipe_layout);
+            holder.tvDeleteChatRow = convertView.findViewById(R.id.tv_delete_chatRow);
             holder.motioned = (TextView) convertView.findViewById(R.id.mentioned);
+            holder.ll_time_num = convertView.findViewById(R.id.ll_time_num);
+            holder.iv_private_letter = convertView.findViewById(R.id.iv_private_letter);
             convertView.setTag(holder);
         }
-        holder.list_itease_layout.setBackgroundResource(R.drawable.ease_mm_listitem);
+       // holder.list_itease_layout.setBackgroundResource(R.drawable.ease_mm_listitem);
 
         // get conversation
-        EMConversation conversation = getItem(position);
+        final EMConversation conversation = getItem(position);
         // get username or group id
-        String username = conversation.conversationId();
+        final String username = conversation.conversationId();
         
+        //滑动绑定数据
+        binderHelper.bind(holder.swipeRevealLayout,username);
         if (conversation.getType() == EMConversationType.GroupChat) {
             String groupId = conversation.conversationId();
             if(EaseAtMessageHelper.get().hasAtMeMsg(groupId)){
@@ -126,6 +151,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.motioned.setVisibility(View.GONE);
         }
 
+       
         EaseAvatarOptions avatarOptions = EaseUI.getInstance().getAvatarOptions();
         if(avatarOptions != null && holder.avatar instanceof EaseImageView) {
             EaseImageView avatarView = ((EaseImageView) holder.avatar);
@@ -167,9 +193,9 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         }
         
         //set property
-        holder.name.setTextColor(primaryColor);
-        holder.message.setTextColor(secondaryColor);
-        holder.time.setTextColor(timeColor);
+//        holder.name.setTextColor(primaryColor);
+//        holder.message.setTextColor(secondaryColor);
+//        holder.time.setTextColor(timeColor);
         if(primarySize != 0)
             holder.name.setTextSize(TypedValue.COMPLEX_UNIT_PX, primarySize);
         if(secondarySize != 0)
@@ -177,6 +203,38 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         if(timeSize != 0)
             holder.time.setTextSize(TypedValue.COMPLEX_UNIT_PX, timeSize);
 
+        final ViewHolder finalHolder = holder;
+        holder.tvDeleteChatRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finalHolder.swipeRevealLayout.close(true);
+                CommonUtils.OnConversationDeleteListener listener = CommonUtils.onConversationDeleteListener;
+                if (listener != null) {
+                    listener.onDeleteClick(conversation);
+                }
+            }
+        });
+        holder.list_itease_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonUtils.OnConversationItemClickListener listener = CommonUtils.onConversationItemClickListener;
+                if (listener != null) {
+                    listener.onConversationClick(username);
+                }
+            }
+        });
+        //todo 主播第一条展示
+        if (conversation.conversationId().equals(CommonUtils.anchorAccount)) {
+            EMMessage lastMessage = conversation.getLastMessage();
+            if (lastMessage.getType() == EMMessage.Type.CUSTOM) {
+                holder.message.setText("");
+                holder.ll_time_num.setVisibility(View.GONE);
+                holder.iv_private_letter.setVisibility(View.VISIBLE);
+            }
+        } else {
+            holder.ll_time_num.setVisibility(View.VISIBLE);
+            holder.iv_private_letter.setVisibility(View.GONE);
+        }
         return convertView;
     }
     
@@ -321,8 +379,13 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         /** status of last message */
         View msgState;
         /** layout */
-        RelativeLayout list_itease_layout;
+        FrameLayout list_itease_layout;
         TextView motioned;
+        TextView tvDeleteChatRow;
+        SwipeRevealLayout swipeRevealLayout;
+        LinearLayout ll_time_num;
+        ImageView iv_private_letter;
     }
+   
 }
 

@@ -11,7 +11,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.heytap.mcssdk.PushManager;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMConferenceListener;
 import com.hyphenate.EMConnectionListener;
@@ -48,6 +47,10 @@ import com.hyphenate.chatuidemo.domain.RobotUser;
 import com.hyphenate.chatuidemo.parse.UserProfileManager;
 import com.hyphenate.chatuidemo.receiver.CallReceiver;
 import com.hyphenate.chatuidemo.receiver.HeadsetReceiver;
+import com.hyphenate.chatuidemo.ui.ChatActivity;
+import com.hyphenate.chatuidemo.ui.MainActivity;
+import com.hyphenate.chatuidemo.ui.VideoCallActivity;
+import com.hyphenate.chatuidemo.ui.VoiceCallActivity;
 import com.hyphenate.chatuidemo.utils.PreferenceManager;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.EaseUI.EaseEmojiconInfoProvider;
@@ -66,6 +69,7 @@ import com.hyphenate.push.EMPushConfig;
 import com.hyphenate.push.EMPushHelper;
 import com.hyphenate.push.EMPushType;
 import com.hyphenate.util.EMLog;
+import com.meizu.cloud.pushsdk.PushManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -1870,10 +1874,10 @@ public class DemoHelper {
      * 展示通知设置页面
      */
     public void showNotificationPermissionDialog() {
-        EMPushType pushType = EMPushHelper.getInstance().getPushType();
-        // oppo
-        if(pushType == EMPushType.OPPOPUSH && PushManager.isSupportPush(appContext)) {
-            PushManager.getInstance().requestNotificationPermission();
-        }
+//        EMPushType pushType = EMPushHelper.getInstance().getPushType();
+//        // oppo
+//        if(pushType == EMPushType.OPPOPUSH && PushManager.isSupportPush(appContext)) {
+//            PushManager.getInstance().requestNotificationPermission();
+//        }
     }
 }

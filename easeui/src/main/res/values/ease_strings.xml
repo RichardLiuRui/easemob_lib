@@ -25,6 +25,7 @@
     <string name="copy_message">Copy message</string>
     <string name="delete_voice">Delete voice</string>
     <string name="delete_video">Delete video</string>
+    <string name="delete_chatrow">Delete chatRow</string>
     <string name="delete">Delete</string>
     <string name="resend">Resend</string>
     <string name="confirm_resend">Confirm to resend？</string>
@@ -314,4 +315,5 @@
     <string name="title_msg_typing">Single chat shows \"Typing\"</string>
 
     <string name="custom_message">custom message: %1$s</string>
+    <string name="str_private_letter">private letter</string>
 </resources>

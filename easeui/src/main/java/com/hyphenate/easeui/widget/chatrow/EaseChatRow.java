@@ -154,7 +154,8 @@ public abstract class EaseChatRow extends LinearLayout {
         if (EMClient.getInstance().getOptions().getRequireDeliveryAck()) {
             if(deliveredView != null){
                 if (message.isDelivered()) {
-                    deliveredView.setVisibility(View.VISIBLE);
+                    //todo 送达
+                    deliveredView.setVisibility(View.INVISIBLE);
                 } else {
                     deliveredView.setVisibility(View.INVISIBLE);
                 }
@@ -166,7 +167,8 @@ public abstract class EaseChatRow extends LinearLayout {
                     if (deliveredView != null) {
                         deliveredView.setVisibility(View.INVISIBLE);
                     }
-                    ackedView.setVisibility(View.VISIBLE);
+                    //todo 已读
+                    ackedView.setVisibility(View.INVISIBLE);
                 } else {
                     ackedView.setVisibility(View.INVISIBLE);
                 }

@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.StrictMode;
 
+import com.hyphenate.chatuidemo.ui.ImageGridActivity;
+
 import java.util.Comparator;
 import java.util.List;
 

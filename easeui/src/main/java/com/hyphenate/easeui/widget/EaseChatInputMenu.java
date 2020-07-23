@@ -103,7 +103,7 @@ public class EaseChatInputMenu extends LinearLayout {
         emojiconMenuContainer.addView(emojiconMenu);
 
         processChatMenu();
-        chatExtendMenu.init();
+    //    chatExtendMenu.init();
         
         inited = true;
     }

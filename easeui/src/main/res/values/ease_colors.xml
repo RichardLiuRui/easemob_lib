@@ -47,4 +47,11 @@
     <color name="recall_black">#61212121</color>
     <color name="recall_black_38">#89ffffff</color>
     <color name="recall_white_54">#89ffffff</color>
+    <color name="color_2A183D">#2A183D</color>
+    <color name="color_31253D">#31253D</color>
+    <color name="color_C0C0C0">#C0C0C0</color>
+    <color name="color_A6A6A6">#A6A6A6</color>
+    <color name="color_1Affffff">#1Affffff</color>
+    <color name="color_9Affffff">#9Affffff</color>
+    <color name="color_DE3C78">#DE3C78</color>
 </resources>

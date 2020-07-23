@@ -42,6 +42,7 @@ import com.hyphenate.chatuidemo.widget.ChatRowConferenceInvitePresenter;
 import com.hyphenate.chatuidemo.widget.ChatRowLivePresenter;
 import com.hyphenate.chatuidemo.widget.EaseChatRecallPresenter;
 import com.hyphenate.chatuidemo.widget.EaseChatVoiceCallPresenter;
+import com.hyphenate.easeui.CommonUtils;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.model.EaseDingMessageHelper;
 import com.hyphenate.easeui.ui.EaseChatFragment;
@@ -126,7 +127,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 onBackPressed();
             }
         });
-        ((EaseEmojiconMenu)inputMenu.getEmojiconMenu()).addEmojiconGroup(EmojiconExampleGroupData.getData());
+        //todo 表情管理里  其他类型的表情
+      //  ((EaseEmojiconMenu)inputMenu.getEmojiconMenu()).addEmojiconGroup(EmojiconExampleGroupData.getData());
         if(chatType == EaseConstant.CHATTYPE_GROUP){
             inputMenu.getPrimaryMenu().getEditText().addTextChangedListener(new TextWatcher() {
                 
@@ -322,9 +324,14 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public void onAvatarClick(String username) {
         //handling when user click avatar
-        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-        intent.putExtra("username", username);
-        startActivity(intent);
+        //todo 头像点击 接口回调
+        CommonUtils.OnChatAvatarClickListener listener = CommonUtils.onChatAvatarClick;
+        if (listener != null) {
+            listener.onAvatarClick(username);
+        }
+//        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+//        intent.putExtra("username", username);
+//        startActivity(intent);
     }
     
     @Override
@@ -346,9 +353,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public void onMessageBubbleLongClick(EMMessage message) {
     	// no message forward when in chat room
-        startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class)).putExtra("message",message)
-                .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),
-                REQUEST_CODE_CONTEXT_MENU);
+        //todo 消息长按
+//        startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class)).putExtra("message",message)
+//                .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),
+//                REQUEST_CODE_CONTEXT_MENU);
     }
 
     @Override

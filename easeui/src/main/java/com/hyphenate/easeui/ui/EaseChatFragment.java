@@ -193,7 +193,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
         extendMenuItemClickListener = new MyItemClickListener();
         inputMenu = (EaseChatInputMenu) getView().findViewById(R.id.input_menu);
-        registerExtendMenuItem();
+        //todo 扩展面板的注册
+      //  registerExtendMenuItem();
         // init input menu
         inputMenu.init(null);
         inputMenu.setChatInputMenuListener(new ChatInputMenuListener() {
@@ -305,7 +306,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     titleBar.setTitle(user.getNickname());
                 }
             }
-            titleBar.setRightImageResource(R.drawable.ease_mm_title_remove);
+        //   titleBar.setRightImageResource(R.drawable.ease_mm_title_remove);
         } else {
         	titleBar.setRightImageResource(R.drawable.ease_to_group_details_normal);
             if (chatType == EaseConstant.CHATTYPE_GROUP) {

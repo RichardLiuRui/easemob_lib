@@ -115,7 +115,9 @@ public class EaseCommonUtils {
                     digest = getString(context, R.string.dynamic_expression);
                 }
             }else{
-                digest = txtBody.getMessage();
+	            if (txtBody != null) {
+		            digest = txtBody.getMessage();
+	            }
             }
             break;
         case FILE:

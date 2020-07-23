@@ -4,19 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="#f2f0eb">
+    android:background="@color/color_2A183D"
+    >
 
     <com.hyphenate.easeui.widget.EaseTitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         hyphenate:titleBarLeftImage="@drawable/ease_mm_title_back" />
-
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/title_bar"
+        android:background="@color/color_1Affffff"></View>
     <LinearLayout
         android:id="@+id/layout_alert_kicked_off"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/title_bar"
+        android:layout_below="@id/viewLine"
         android:background="@drawable/ease_alert_click_bg"
         android:gravity="center_vertical"
         android:visibility="gone">
@@ -30,7 +36,7 @@
             android:textColor="#000" />
 
     </LinearLayout>
-
+    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,6 +60,7 @@
         android:id="@+id/input_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

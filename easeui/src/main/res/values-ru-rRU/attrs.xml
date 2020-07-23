@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SVGAImageView">
+        <attr name="source" format="string" />
+        <attr name="autoPlay" format="boolean" />
+        <attr name="antiAlias" format="boolean" />
+        <attr name="SVGLoopCount" format="integer" />
+        <attr name="clearsAfterStop" format="boolean" />
+        <attr name="fillMode" format="enum">
+            <enum name="Backward" value="0" />
+            <enum name="Forward" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="RoundedImageView">
+        <attr name="riv_corner_radius" format="dimension" />
+        <attr name="riv_corner_radius_top_left" format="dimension" />
+        <attr name="riv_corner_radius_top_right" format="dimension" />
+        <attr name="riv_corner_radius_bottom_left" format="dimension" />
+        <attr name="riv_corner_radius_bottom_right" format="dimension" />
+        <attr name="riv_border_width" format="dimension" />
+        <attr name="riv_border_color" format="color" />
+        <attr name="riv_mutate_background" format="boolean" />
+        <attr name="riv_oval" format="boolean" />
+        <attr name="android:scaleType" />
+        <attr name="riv_tile_mode">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+        <attr name="riv_tile_mode_x">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+        <attr name="riv_tile_mode_y">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="TabButton">
+        <attr name="tbn_icon_array_id" format="reference" />
+        <attr name="tbn_tip" format="string" />
+        <attr name="tbn_icon_size" format="dimension" />
+        <attr name="tbn_text_size" format="dimension" />
+        <attr name="tbn_text_color_checked" format="color" />
+        <attr name="tbn_text_color_unchecked" format="color" />
+        <attr name="tbn_checked" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="CommonRefreshView">
+        <attr name="crv_refreshEnable" format="boolean" />
+        <attr name="crv_loadMoreEnable" format="boolean" />
+        <attr name="crv_emptyEnable" format="boolean" />
+        <attr name="crv_layout" format="reference" />
+        <attr name="crv_itemCount" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="MyViewPager">
+        <attr name="canScroll" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="RatioImageView">
+        <attr name="ri_ratio" format="float" />
+    </declare-styleable>
+    <declare-styleable name="DrawableTextView">
+        <attr name="dt_top_width" format="dimension" />
+        <attr name="dt_top_height" format="dimension" />
+        <attr name="dt_left_width" format="dimension" />
+        <attr name="dt_left_height" format="dimension" />
+        <attr name="dt_right_width" format="dimension" />
+        <attr name="dt_right_height" format="dimension" />
+        <attr name="dt_bottom_width" format="dimension" />
+        <attr name="dt_bottom_height" format="dimension" />
+        <attr name="dt_top_drawable" format="reference" />
+        <attr name="dt_left_drawable" format="reference" />
+        <attr name="dt_right_drawable" format="reference" />
+        <attr name="dt_bottom_drawable" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="MyLinearLayout2">
+        <attr name="mll_span_count" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="MyFrameLayout2">
+        <attr name="mfl_ratio" format="float" />
+        <attr name="mfl_offestY" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="MyLinearLayout6">
+        <attr name="mll_ratio" format="float" />
+    </declare-styleable>
+    <declare-styleable name="MyRelativeLayout2">
+        <attr name="mrl_ratio" format="float" />
+        <attr name="mrl_scaleX" format="float" />
+    </declare-styleable>
+    <declare-styleable name="MyLinearLayout3">
+        <attr name="mll_height_percent" format="float" />
+    </declare-styleable>
+    <declare-styleable name="MyLinearLayout4">
+        <attr name="mll4_count" format="float" />
+    </declare-styleable>
+    <declare-styleable name="CircleProgress">
+        <attr name="cp_stroke_width" format="dimension" />
+        <attr name="cp_bg_color" format="color" />
+        <attr name="cp_fg_color" format="color" />
+        <attr name="cp_max_progress" format="float" />
+        <attr name="cp_cur_progress" format="float" />
+    </declare-styleable>
+    <declare-styleable name="CoinGiveLayout">
+        <attr name="cgl_bg_color" format="color" />
+        <attr name="cgl_radius" format="dimension" />
+        <attr name="cgl_arrow_width" format="dimension" />
+        <attr name="cgl_arrow_height" format="dimension" />
+        <attr name="cgl_arrow_offset_x" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="Banner">
+        <attr name="delay_time" format="integer" />
+        <attr name="scroll_time" format="integer" />
+        <attr name="is_auto_play" format="boolean" />
+        <attr name="title_background" format="color|reference" />
+        <attr name="title_textcolor" format="color" />
+        <attr name="title_textsize" format="dimension" />
+        <attr name="title_height" format="dimension" />
+        <attr name="indicator_width" format="dimension" />
+        <attr name="indicator_height" format="dimension" />
+        <attr name="indicator_selected_width" format="dimension" />
+        <attr name="indicator_selected_height" format="dimension" />
+        <attr name="indicator_margin" format="dimension" />
+        <attr name="indicator_drawable_selected" format="reference" />
+        <attr name="indicator_drawable_unselected" format="reference" />
+        <attr name="banner_layout" format="reference"/>
+        <attr name="banner_default_image" format="reference"/>
+        <attr name="image_scale_type" format="enum">
+            <enum name="center" value="0" />
+            <enum name="center_crop" value="1" />
+            <enum name="center_inside" value="2" />
+            <enum name="fit_center" value="3" />
+            <enum name="fit_end" value="4" />
+            <enum name="fit_start" value="5" />
+            <enum name="fit_xy" value="6" />
+            <enum name="matrix" value="7" />
+        </attr>
+        <!--<attr name="indicator_animator" format="reference" />-->
+        <!--<attr name="indicator_animator_reverse" format="reference" />-->
+    </declare-styleable>
+
+    <declare-styleable name="SwipeRevealLayout">
+        <attr name="dragEdge">
+            <flag name="left" value="1" />
+            <flag name="right" value="2" />
+            <flag name="top" value="4" />
+            <flag name="bottom" value="8" />
+        </attr>
+
+        <attr name="mode">
+            <enum name="normal" value="0" />
+            <enum name="same_level"   value="1" />
+        </attr>
+
+        <attr name="flingVelocity" format="integer" />
+
+        <attr name="minDistRequestDisallowParent" format="dimension" />
+    </declare-styleable>
+
+</resources>

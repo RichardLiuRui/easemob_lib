@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.runtimepermissions.PermissionsManager;
+import com.hyphenate.easeui.CommonUtils;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.util.EasyUtils;
 
@@ -24,6 +25,8 @@ public class ChatActivity extends BaseActivity{
         activityInstance = this;
         //get user id or group id
         toChatUsername = getIntent().getExtras().getString("userId");
+        CommonUtils.type = getIntent().getExtras().getInt("type");
+        CommonUtils.type = 1;
         //use EaseChatFratFragment
         chatFragment = new ChatFragment();
         //pass parameters to chat fragment

@@ -2,6 +2,7 @@ package com.hyphenate.easeui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -27,7 +28,7 @@ public class EaseConversationList extends ListView{
     protected final int MSG_REFRESH_ADAPTER_DATA = 0;
     
     protected Context context;
-    protected EaseConversationAdapter adapter;
+    public  EaseConversationAdapter adapter;
     protected List<EMConversation> conversations = new ArrayList<EMConversation>();
     protected List<EMConversation> passedListRef = null;
     
@@ -75,8 +76,10 @@ public class EaseConversationList extends ListView{
         adapter.setTimeColor(timeColor);
         adapter.setTimeSize(timeSize);
         setAdapter(adapter);
+        
     }
-    
+
+
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message message) {

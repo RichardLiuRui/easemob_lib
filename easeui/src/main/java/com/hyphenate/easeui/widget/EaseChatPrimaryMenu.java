@@ -1,7 +1,10 @@
 package com.hyphenate.easeui.widget;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -17,8 +20,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hyphenate.easeui.CommonUtils;
 import com.hyphenate.easeui.R;
 import com.hyphenate.util.EMLog;
+
+import java.lang.reflect.Field;
 
 /**
  * primary menu
@@ -35,6 +41,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     private ImageView faceChecked;
     private Button buttonMore;
     private boolean ctrlPress = false;
+    private TextView tvDesc; //发送消息时描述
 
     public EaseChatPrimaryMenu(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -53,7 +60,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     private void init(final Context context, AttributeSet attrs) {
         Context context1 = context;
         LayoutInflater.from(context).inflate(R.layout.ease_widget_chat_primary_menu, this);
-        editText = (EditText) findViewById(R.id.et_sendmessage);
+        editText =  findViewById(R.id.et_sendmessage);
         buttonSetModeKeyboard = findViewById(R.id.btn_set_mode_keyboard);
         edittext_layout = (RelativeLayout) findViewById(R.id.edittext_layout);
         buttonSetModeVoice = findViewById(R.id.btn_set_mode_voice);
@@ -63,7 +70,8 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         faceChecked = (ImageView) findViewById(R.id.iv_face_checked);
         RelativeLayout faceLayout = (RelativeLayout) findViewById(R.id.rl_face);
         buttonMore = (Button) findViewById(R.id.btn_more);
-        edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_normal);
+        tvDesc = findViewById(R.id.tvDesc);
+     //   edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_normal);
         
         buttonSend.setOnClickListener(this);
         buttonSetModeKeyboard.setOnClickListener(this);
@@ -78,9 +86,9 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_active);
+         //           edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_active);
                 } else {
-                    edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_normal);
+          //          edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_normal);
                 }
 
             }
@@ -94,7 +102,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                     buttonMore.setVisibility(View.GONE);
                     buttonSend.setVisibility(View.VISIBLE);
                 } else {
-                    buttonMore.setVisibility(View.VISIBLE);
+                    buttonMore.setVisibility(View.GONE);
                     buttonSend.setVisibility(View.GONE);
                 }
 
@@ -129,7 +137,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                 return false;
             }
         });
-
+       
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -160,8 +168,57 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                 return false;
             }
         });
+        setTips(context);
     }
-    
+
+    /**
+     * 设置提示信息
+     */
+    private void setTips(final Context context) {
+        if (CommonUtils.type == CommonUtils.AUDIENCE) { //观众
+            String html = "与主播亲密互动，<font color = #FFE05F>50</font><img src='live_sdk_icon_diamonds'/>/条";
+            tvDesc.setText(Html.fromHtml(html, new Html.ImageGetter() {
+                @Override
+                public Drawable getDrawable(String s) {
+                    Drawable drawable = null;
+                    try {
+                        Field resource = R.mipmap.class.getField(s);
+                        int rId = Integer.parseInt(resource.get(null).toString());
+                        drawable = context.getResources().getDrawable(rId);
+                        drawable.setBounds(10, -8,drawable.getIntrinsicWidth()+15,
+                                drawable.getIntrinsicHeight());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    return drawable;
+                 
+                }
+            },null));
+        } else {
+            
+            String html = "主播可免费与用户聊天哦<img src='live_sdk_icon_love'/>";
+            tvDesc.setText(Html.fromHtml(html, new Html.ImageGetter() {
+                @Override
+                public Drawable getDrawable(String s) {
+                    Drawable drawable = null;
+                    try {
+                        Field resource = R.mipmap.class.getField(s);
+                        int rId = Integer.parseInt(resource.get(null).toString());
+                        drawable = context.getResources().getDrawable(rId);
+                        drawable.setBounds(10, -8,drawable.getIntrinsicWidth()+15,
+                               drawable.getIntrinsicHeight());
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    return drawable;
+
+                }
+            },null));
+        }
+    }
     /**
      * set recorder view when speak icon is touched
      * @param voiceRecorderView
@@ -220,7 +277,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             if(listener != null)
                 listener.onToggleExtendClicked();
         } else if (id == R.id.et_sendmessage) {
-            edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_active);
+       //     edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_active);
             faceNormal.setVisibility(View.VISIBLE);
             faceChecked.setVisibility(View.INVISIBLE);
             if(listener != null)
@@ -256,6 +313,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
      * show keyboard
      */
     protected void setModeKeyboard() {
+        //todo 发送点击事件
         edittext_layout.setVisibility(View.VISIBLE);
         buttonSetModeKeyboard.setVisibility(View.GONE);
         buttonSetModeVoice.setVisibility(View.VISIBLE);
@@ -264,7 +322,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         // buttonSend.setVisibility(View.VISIBLE);
         buttonPressToSpeak.setVisibility(View.GONE);
         if (TextUtils.isEmpty(editText.getText())) {
-            buttonMore.setVisibility(View.VISIBLE);
+            buttonMore.setVisibility(View.GONE);
             buttonSend.setVisibility(View.GONE);
         } else {
             buttonMore.setVisibility(View.GONE);

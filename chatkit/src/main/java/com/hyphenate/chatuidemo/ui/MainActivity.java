@@ -186,6 +186,17 @@ public class MainActivity extends BaseActivity {
 	};
 
 
+//	@Override
+//	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//		super.onRestoreInstanceState(savedInstanceState);
+//
+//		// Only if you need to restore open/close state when
+//		// the orientation is changed
+//		if (conversationListFragment.conversationListView.adapter != null) {
+//			conversationListFragment.conversationListView.adapter.restoreStates(savedInstanceState);
+//		}
+//	}
+
     @TargetApi(23)
 	private void requestPermissions() {
 		PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
@@ -488,7 +499,9 @@ public class MainActivity extends BaseActivity {
                 fm.putFragment(outState, f.getClass().getSimpleName(), f);
             }
         }
-
+//		if (conversationListFragment.conversationListView.adapter != null) {
+//			conversationListFragment.conversationListView.adapter.saveStates(outState);
+//		}
 		super.onSaveInstanceState(outState);
 	}
 

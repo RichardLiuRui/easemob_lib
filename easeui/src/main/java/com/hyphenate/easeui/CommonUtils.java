@@ -70,4 +70,12 @@ public class CommonUtils {
 	public interface OnSendTxtMessageListener{
 		void onSendMessage(String userName,String content);
 	}
+//	//忽略未读
+//	public static OnIgnoreUnreadListener onIgnoreUnreadListener;
+//	public static void setOnIgnoreUnreadListener(OnIgnoreUnreadListener listener) {
+//		onIgnoreUnreadListener = listener;
+//	}
+//	public interface OnIgnoreUnreadListener{
+//		void onIgnoreUnread();
+//	}
 }

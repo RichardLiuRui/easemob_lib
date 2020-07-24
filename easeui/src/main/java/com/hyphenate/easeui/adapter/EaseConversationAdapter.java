@@ -233,6 +233,9 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                     holder.message.setText(context.getResources().getString(R.string.str_conversation_desc));
                     holder.ll_time_num.setVisibility(View.GONE);
                     holder.iv_private_letter.setVisibility(View.VISIBLE);
+                }else {
+                    holder.ll_time_num.setVisibility(View.VISIBLE);
+                    holder.iv_private_letter.setVisibility(View.GONE);
                 }
             } else {
                 holder.ll_time_num.setVisibility(View.VISIBLE);

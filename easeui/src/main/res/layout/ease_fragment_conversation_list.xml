@@ -6,31 +6,106 @@
     android:background="@color/color_2A183D"
     android:orientation="vertical">
 
-	<com.hyphenate.easeui.widget.EaseTitleBar 
-	    android:id="@+id/title_bar"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-		android:visibility="gone"
-	    hyphenate:titleBarTitle="@string/session"
-	    />
-    
-<!--    <include layout="@layout/ease_search_bar" />-->
-    
-    <FrameLayout
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+        hyphenate:titleBarTitle="@string/session" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_2A183D"
+
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:paddingTop="19dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/titleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="@string/str_my_private_letter"
+                    android:textColor="@color/btn_white_normal"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:padding="9dp"
+                    android:src="@drawable/ease_mm_title_back" />
+
+                <TextView
+                    android:id="@+id/tv_ignore_unread"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:text="@string/str_ignore_unread"
+                    android:textColor="@color/btn_white_normal"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_1Affffff"></View>
+    <!--    <include layout="@layout/ease_search_bar" />-->
+
+    <FrameLayout
         android:id="@+id/fl_error_item"
-        >
-    </FrameLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></FrameLayout>
 
 
-	<com.hyphenate.easeui.widget.EaseConversationList
-		android:id="@+id/list"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:background="@android:color/transparent"
-		android:cacheColorHint="#00000000"
-		android:divider="@null"
-		hyphenate:cvsListPrimaryTextSize="16sp" />
-	
+    <com.hyphenate.easeui.widget.EaseConversationList
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:visibility="visible"
+        hyphenate:cvsListPrimaryTextSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/live_sdk_icon_private_letter_null"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_private_letter_null"
+            android:textColor="@color/color_55ffffff"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"></TextView>
+    </LinearLayout>
+
 </LinearLayout>

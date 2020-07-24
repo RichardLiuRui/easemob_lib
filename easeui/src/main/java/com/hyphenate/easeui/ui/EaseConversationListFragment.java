@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMConversationListener;
@@ -46,8 +48,10 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 	public EaseConversationList conversationListView;
 	protected FrameLayout errorItemContainer;
 
+	protected LinearLayout llNull;
 	protected boolean isConflict;
 
+	public TextView ignoreUnRead;
 	protected EMConversationListener convListener = new EMConversationListener() {
 
 		@Override
@@ -73,6 +77,19 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 	protected void initView() {
 		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		conversationListView = (EaseConversationList) getView().findViewById(R.id.list);
+		llNull = getView().findViewById(R.id.ll_null);
+//		getView().findViewById(R.id.tv_ignore_unread).setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//				for (int i = 0; i < loadConversationList().size(); i++) {
+//					EMConversation conversation = EMClient.getInstance().chatManager().getConversation(loadConversationList().get(i).conversationId());
+//					//指定会话消息未读数清零
+//					conversation.markAllMessagesAsRead();
+//					refresh();
+//				}
+//
+//			}
+//		});
 		//   query = (EditText) getView().findViewById(R.id.query);
 		// button to clear content in search bar
 		//     clearSearch = (ImageButton) getView().findViewById(R.id.search_clear);
@@ -82,8 +99,9 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 	@Override
 	protected void setUpView() {
 		conversationList.addAll(loadConversationList());
+
 		conversationListView.init(conversationList);
-		
+
 		if (listItemClickListener != null) {
 			conversationListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -130,7 +148,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 			}
 		});
 	}
-	
+
 
 	protected EMConnectionListener connectionListener = new EMConnectionListener() {
 
@@ -228,8 +246,8 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 			list.add(sortItem.second);
 		}
 		//todo 当前为观众时添加当前主播为第一条
-	//	CommonUtils.setRole(CommonUtils.AUDIENCE);
-		if (CommonUtils.type == CommonUtils.AUDIENCE) { 
+		//	CommonUtils.setRole(CommonUtils.AUDIENCE);
+		if (CommonUtils.type == CommonUtils.AUDIENCE) {
 			//判断会话列表是否包含当前主播
 			boolean contains = false;
 			for (int i = 0; i < list.size(); i++) {
@@ -256,11 +274,18 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 				}
 			}
 		}
-		
+		//todo 返回列表为0 展示缺省页
+		if (list.size() > 0) {
+			llNull.setVisibility(View.GONE);
+			conversationListView.setVisibility(View.VISIBLE);
+		} else {
+			llNull.setVisibility(View.VISIBLE);
+			conversationListView.setVisibility(View.GONE);
+		}
 
 		return list;
 	}
-	
+
 	/**
 	 * sort conversations according time stamp of last message
 	 *

@@ -99,66 +99,66 @@ public class DemoHelper {
 
     protected static final String TAG = "DemoHelper";
     
-	private EaseUI easeUI;
+	public EaseUI easeUI;
 
     /**
      * EMEventListener
      */
     protected EMMessageListener messageListener = null;
 
-	private Map<String, EaseUser> contactList;
+	public Map<String, EaseUser> contactList;
 
-	private Map<String, RobotUser> robotList;
+	public Map<String, RobotUser> robotList;
 
-	private UserProfileManager userProManager;
+	public UserProfileManager userProManager;
 
-	private static DemoHelper instance = null;
+	public static DemoHelper instance = null;
 	
-	private DemoModel demoModel = null;
+	public DemoModel demoModel = null;
 	
 	/**
      * sync groups status listener
      */
-    private List<DataSyncListener> syncGroupsListeners;
+    public List<DataSyncListener> syncGroupsListeners;
     /**
      * sync contacts status listener
      */
-    private List<DataSyncListener> syncContactsListeners;
+    public List<DataSyncListener> syncContactsListeners;
     /**
      * sync blacklist status listener
      */
-    private List<DataSyncListener> syncBlackListListeners;
+    public List<DataSyncListener> syncBlackListListeners;
 
-    private boolean isSyncingGroupsWithServer = false;
-    private boolean isSyncingContactsWithServer = false;
-    private boolean isSyncingBlackListWithServer = false;
-    private boolean isGroupsSyncedWithServer = false;
-    private boolean isContactsSyncedWithServer = false;
-    private boolean isBlackListSyncedWithServer = false;
+    public boolean isSyncingGroupsWithServer = false;
+    public boolean isSyncingContactsWithServer = false;
+    public boolean isSyncingBlackListWithServer = false;
+    public boolean isGroupsSyncedWithServer = false;
+    public boolean isContactsSyncedWithServer = false;
+    public boolean isBlackListSyncedWithServer = false;
 	
 	public boolean isVoiceCalling;
     public boolean isVideoCalling;
 
-	private String username;
+	public String username;
 
-    private Context appContext;
+    public Context appContext;
 
-    private CallReceiver callReceiver;
+    public CallReceiver callReceiver;
 
-    private InviteMessgeDao inviteMessgeDao;
-    private UserDao userDao;
+    public InviteMessgeDao inviteMessgeDao;
+    public UserDao userDao;
 
-    private LocalBroadcastManager broadcastManager;
+    public LocalBroadcastManager broadcastManager;
 
-    private boolean isGroupAndContactListenerRegisted;
+    public boolean isGroupAndContactListenerRegisted;
 
-    private ExecutorService executor;
+    public ExecutorService executor;
 
     protected android.os.Handler handler;
 
     Queue<String> msgQueue = new ConcurrentLinkedQueue<>();
 
-	private DemoHelper() {
+	public DemoHelper() {
         executor = Executors.newCachedThreadPool();
 	}
 
@@ -210,7 +210,7 @@ public class DemoHelper {
 	}
 
 
-    private EMOptions initChatOptions(Context context){
+    public EMOptions initChatOptions(Context context){
         Log.d(TAG, "init HuanXin Options");
         
         EMOptions options = new EMOptions();
@@ -236,7 +236,7 @@ public class DemoHelper {
                 .enableFCM("921300338324");
         options.setPushConfig(builder.build());
 
-        //set custom servers, commonly used in private deployment
+        //set custom servers, commonly used in public deployment
         if(demoModel.isCustomServerEnable() && demoModel.getRestServer() != null && demoModel.getIMServer() != null) {
             options.setRestServer(demoModel.getRestServer());
             options.setIMServer(demoModel.getIMServer());
@@ -260,7 +260,7 @@ public class DemoHelper {
         return options;
     }
 
-    private void setCallOptions() {
+    public void setCallOptions() {
         HeadsetReceiver headsetReceiver = new HeadsetReceiver();
         IntentFilter headsetFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         appContext.registerReceiver(headsetReceiver, headsetFilter);
@@ -649,12 +649,12 @@ public class DemoHelper {
         LiveActivity.watch(appContext, confId, password, inviter);
     }
 
-    private void initDbDao() {
+    public void initDbDao() {
         inviteMessgeDao = new InviteMessgeDao(appContext);
         userDao = new UserDao(appContext);
     }
 
-    private boolean isDuringMediaCommunication() {
+    public boolean isDuringMediaCommunication() {
         String topClassName = easeUI.getTopActivity().getClass().getSimpleName();
         if (easeUI.hasForegroundActivies() && ("LiveActivity".equals(topClassName) || "ConferenceActivity".equals(topClassName))) {
             return true;
@@ -1082,7 +1082,7 @@ public class DemoHelper {
             }
         }
 
-        private void updateContactNotificationStatus(String from, String reason, InviteMessageStatus status) {
+        public void updateContactNotificationStatus(String from, String reason, InviteMessageStatus status) {
             InviteMessage msg = null;
             for (InviteMessage _msg : inviteMessgeDao.getMessagesList()) {
                 if (_msg.getFrom().equals(from)) {
@@ -1249,7 +1249,7 @@ public class DemoHelper {
             });
         }
 
-        private void saveGroupNotification(String groupId, String groupName, String inviter, String reason, InviteMessageStatus status) {
+        public void saveGroupNotification(String groupId, String groupName, String inviter, String reason, InviteMessageStatus status) {
             InviteMessage msg = new InviteMessage();
             msg.setFrom(groupId);
             msg.setTime(System.currentTimeMillis());
@@ -1262,7 +1262,7 @@ public class DemoHelper {
             notifyNewInviteMessage(msg);
         }
 
-        private void updateGroupNotificationStatus(String groupId, String groupName, String inviter, String reason,  InviteMessageStatus status) {
+        public void updateGroupNotificationStatus(String groupId, String groupName, String inviter, String reason,  InviteMessageStatus status) {
             InviteMessage msg = null;
             for (InviteMessage _msg : inviteMessgeDao.getMessagesList()) {
                 if (_msg.getGroupId().equals(groupId)) {
@@ -1283,7 +1283,7 @@ public class DemoHelper {
      * save and notify invitation message
      * @param msg
      */
-    private void notifyNewInviteMessage(InviteMessage msg){
+    public void notifyNewInviteMessage(InviteMessage msg){
         if(inviteMessgeDao == null){
             inviteMessgeDao = new InviteMessgeDao(appContext);
         }
@@ -1308,7 +1308,7 @@ public class DemoHelper {
         showToast(exception);
     }
  
-	private EaseUser getUserInfo(String username){
+	public EaseUser getUserInfo(String username){
 		// To get instance of EaseUser, here we get it from the user list in memory
 		// You'd better cache it if you get it from your server
         EaseUser user = null;

@@ -560,9 +560,9 @@
         <!-- Mi推送配置 end-->
 
         <!--捕获屏幕service-->
-        <service android:name=".conference.SRForegroundService"
-            android:enabled="true"
-            android:foregroundServiceType="mediaProjection"/>
+<!--        <service android:name=".conference.SRForegroundService"-->
+<!--            android:enabled="true"-->
+<!--            android:foregroundServiceType="mediaProjection"/>-->
     </application>
 
 </manifest>

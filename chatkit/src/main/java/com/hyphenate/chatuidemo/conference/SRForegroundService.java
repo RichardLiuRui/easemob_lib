@@ -47,7 +47,7 @@ public class SRForegroundService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    private void createNotificationChannel() {
+    public void createNotificationChannel() {
         Notification.Builder builder = new Notification.Builder(this.getApplicationContext()); //获取一个Notification构造器
         Intent nfIntent = new Intent(this, ConferenceActivity.class); //点击后跳转的界面，可以设置跳转数据
 

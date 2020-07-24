@@ -177,7 +177,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     private void setTips(final Context context) {
         //todo  聊天界面提示信息
         if (CommonUtils.type == CommonUtils.AUDIENCE) { //观众
-            String html = "与主播亲密互动，<font color = #FFE05F>50</font><img src='live_sdk_icon_diamonds'/>/条";
+            String html = "与主播亲密互动，<font color = #FFE05F>50</font><img src='live_sdk_icon_diamonds'/>钻/条";
             tvDesc.setText(Html.fromHtml(html, new Html.ImageGetter() {
                 @Override
                 public Drawable getDrawable(String s) {

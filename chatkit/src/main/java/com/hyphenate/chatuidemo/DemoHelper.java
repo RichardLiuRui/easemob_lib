@@ -53,6 +53,7 @@ import com.hyphenate.chatuidemo.ui.MainActivity;
 import com.hyphenate.chatuidemo.ui.VideoCallActivity;
 import com.hyphenate.chatuidemo.ui.VoiceCallActivity;
 import com.hyphenate.chatuidemo.utils.PreferenceManager;
+import com.hyphenate.easeui.CommonUtils;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.EaseUI.EaseEmojiconInfoProvider;
 import com.hyphenate.easeui.EaseUI.EaseSettingsProvider;
@@ -453,8 +454,11 @@ public class DemoHelper {
             
             @Override
             public Intent getLaunchIntent(EMMessage message) {
-            	// you can set what activity you want display when user click the notification
-                Intent intent = new Intent(appContext, ChatActivity.class);
+                Log.e("message","收到消息");
+                if (CommonUtils.intentClass == null) 
+                    return null;
+                //you can set what activity you want display when user click the notification
+                Intent intent = new Intent(appContext, CommonUtils.intentClass);
                 // open calling activity if there is call
                 if(isVideoCalling){
                     intent = new Intent(appContext, VideoCallActivity.class);
@@ -473,7 +477,7 @@ public class DemoHelper {
                         }else{
                             intent.putExtra("chatType", Constant.CHATTYPE_CHATROOM);
                         }
-                        
+
                     }
                 }
                 return intent;

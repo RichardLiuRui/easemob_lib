@@ -16,6 +16,12 @@ public class CommonUtils {
 	//当前主播的im账号
 	public static String anchorAccount = "wqx0816";
 	
+	//需要跳转的activity
+	public static Class<?> intentClass;
+	
+	public static void setIntentClass (Class<?> cls) {
+		intentClass = cls;
+	}
 	public static void setAnchorAccount (String account) {
 		anchorAccount = account;
 	}

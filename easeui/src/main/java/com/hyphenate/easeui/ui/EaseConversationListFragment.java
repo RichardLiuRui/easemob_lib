@@ -228,7 +228,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 			list.add(sortItem.second);
 		}
 		//todo 当前为观众时添加当前主播为第一条
-		CommonUtils.setRole(CommonUtils.ANCHOR);
+	//	CommonUtils.setRole(CommonUtils.ANCHOR);
 		if (CommonUtils.type == CommonUtils.AUDIENCE) { 
 			//判断会话列表是否包含当前主播
 			boolean contains = false;

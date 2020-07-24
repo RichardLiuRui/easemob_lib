@@ -34,6 +34,8 @@
             android:layout_below="@+id/tv_userid"
             android:layout_marginLeft="@dimen/margin_chat_activity"
             android:layout_toRightOf="@id/iv_userhead"
+            android:gravity="center"
+            android:layout_centerInParent="true"
             android:background="@drawable/ease_chatfrom_bg"
              >
 
@@ -45,12 +47,13 @@
                 android:layout_centerInParent="true"
                 android:gravity="center|left"
                 android:paddingLeft="6dp"
-                android:paddingRight="1dp"
+                android:paddingRight="3dp"
+                android:minHeight="30dp"
+                android:text="" 
                 android:lineSpacingExtra="2dp"
-                android:minHeight="38dp"
                 android:maxWidth="225.0dip"
-                android:textColor="#ff000000"
-                android:textSize="15sp" />
+                android:textColor="@color/color_454545"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <TextView

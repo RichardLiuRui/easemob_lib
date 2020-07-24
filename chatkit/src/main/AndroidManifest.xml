@@ -403,10 +403,10 @@
         </service>
         <!-- huawei push end -->
 
-        <!-- 设置环信应用的appkey -->
-        <meta-data
-            android:name="EASEMOB_APPKEY"
-            android:value="easemob-demo#chatdemoui" />
+<!--        &lt;!&ndash; 设置环信应用的appkey &ndash;&gt;-->
+<!--        <meta-data-->
+<!--            android:name="EASEMOB_APPKEY"-->
+<!--            android:value="easemob-demo#chatdemoui" />-->
         <!-- 声明sdk所需的service -->
         <service
             android:name="com.hyphenate.chat.EMChatService"
@@ -449,13 +449,13 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--推送配置项-->
-        <meta-data
-            android:name="com.vivo.push.api_key"
-            android:value="9b74dbfc-55c4-4441-9d0a-561ff21addc7" />
-        <meta-data
-            android:name="com.vivo.push.app_id"
-            android:value="11025" />
+<!--        &lt;!&ndash;推送配置项&ndash;&gt;-->
+<!--        <meta-data-->
+<!--            android:name="com.vivo.push.api_key"-->
+<!--            android:value="9b74dbfc-55c4-4441-9d0a-561ff21addc7" />-->
+<!--        <meta-data-->
+<!--            android:name="com.vivo.push.app_id"-->
+<!--            android:value="11025" />-->
 
         <receiver android:name="com.hyphenate.push.platform.vivo.EMVivoMsgReceiver" >
             <intent-filter>

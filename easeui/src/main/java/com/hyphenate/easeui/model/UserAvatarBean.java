@@ -17,6 +17,16 @@ public class UserAvatarBean {
 	public class UserAvatar{
 		private String avatarUrl;
 
+		public String getNickName() {
+			return nickName;
+		}
+
+		public void setNickName(String nickName) {
+			this.nickName = nickName;
+		}
+
+		private String nickName;
+
 		public String getAvatarUrl() {
 			return avatarUrl;
 		}

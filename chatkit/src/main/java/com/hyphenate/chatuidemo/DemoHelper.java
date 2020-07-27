@@ -393,7 +393,7 @@ public class DemoHelper {
             
             @Override
             public EaseEmojicon getEmojiconInfo(String emojiconIdentityCode) {
-                EaseEmojiconGroupEntity data = EmojiconExampleGroupData.getData();
+                EaseEmojiconGroupEntity data = EmojiconExampleGroupData.getData(appContext);
                 for(EaseEmojicon emojicon : data.getEmojiconList()){
                     if(emojicon.getIdentityCode().equals(emojiconIdentityCode)){
                         return emojicon;

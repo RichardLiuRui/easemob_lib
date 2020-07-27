@@ -48,7 +48,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 	public EaseConversationList conversationListView;
 	protected FrameLayout errorItemContainer;
 
-	protected LinearLayout llNull;
+	public LinearLayout llNull;
 	protected boolean isConflict;
 
 	public TextView ignoreUnRead;

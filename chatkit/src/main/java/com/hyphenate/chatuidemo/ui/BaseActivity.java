@@ -37,7 +37,8 @@ public class BaseActivity extends EaseBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkIfConferenceExit();
+        //todo  baseActivity
+     //   checkIfConferenceExit();
     }
 
     @Override
@@ -51,6 +52,9 @@ public class BaseActivity extends EaseBaseActivity {
     private void checkIfConferenceExit() {
         // 如果当前的activity是否是ConferenceActivity
         if(this instanceof ConferenceActivity || this instanceof ConferenceInviteActivity) {
+            return;
+        }
+        if (DemoApplication.getInstance() == null) {
             return;
         }
         UserActivityLifecycleCallbacks lifecycleCallbacks = DemoApplication.getInstance().getLifecycleCallbacks();

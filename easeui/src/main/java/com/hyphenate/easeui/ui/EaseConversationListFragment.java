@@ -60,10 +60,12 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 		}
 
 	};
+	public View view;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.ease_fragment_conversation_list, container, false);
+		view = inflater.inflate(R.layout.ease_fragment_conversation_list, container, false);
+		return view;
 	}
 
 	@Override
@@ -76,8 +78,8 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 	@Override
 	protected void initView() {
 		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		conversationListView = (EaseConversationList) getView().findViewById(R.id.list);
-		llNull = getView().findViewById(R.id.ll_null);
+		conversationListView = view.findViewById(R.id.list);
+		llNull = view.findViewById(R.id.ll_null);
 //		getView().findViewById(R.id.tv_ignore_unread).setOnClickListener(new View.OnClickListener() {
 //			@Override
 //			public void onClick(View view) {
@@ -93,7 +95,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 		//   query = (EditText) getView().findViewById(R.id.query);
 		// button to clear content in search bar
 		//     clearSearch = (ImageButton) getView().findViewById(R.id.search_clear);
-		errorItemContainer = (FrameLayout) getView().findViewById(R.id.fl_error_item);
+		errorItemContainer = view.findViewById(R.id.fl_error_item);
 	}
 
 	@Override
@@ -247,7 +249,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 		}
 		//todo 当前为观众时添加当前主播为第一条
 		//	CommonUtils.setRole(CommonUtils.AUDIENCE);
-		if (CommonUtils.type == CommonUtils.AUDIENCE) {
+		if (CommonUtils.privateType == CommonUtils.LIVE_PRIVATE_LETTER && CommonUtils.type == CommonUtils.AUDIENCE) {
 			//判断会话列表是否包含当前主播
 			boolean contains = false;
 			for (int i = 0; i < list.size(); i++) {

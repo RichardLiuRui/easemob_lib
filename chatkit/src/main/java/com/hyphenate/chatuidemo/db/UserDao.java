@@ -36,8 +36,10 @@ public class UserDao {
 	public static final String ROBOT_COLUMN_NAME_NICK = "nick";
 	public static final String ROBOT_COLUMN_NAME_AVATAR = "avatar";
 	
+	public Context context;
 	
 	public UserDao(Context context) {
+		this.context = context;
 	}
 
 	/**
@@ -46,7 +48,7 @@ public class UserDao {
 	 * @param contactList
 	 */
 	public void saveContactList(List<EaseUser> contactList) {
-	    DemoDBManager.getInstance().saveContactList(contactList);
+	    DemoDBManager.getInstance(context).saveContactList(contactList);
 	}
 
 	/**
@@ -56,7 +58,7 @@ public class UserDao {
 	 */
 	public Map<String, EaseUser> getContactList() {
 		
-	    return DemoDBManager.getInstance().getContactList();
+	    return DemoDBManager.getInstance(context).getContactList();
 	}
 	
 	/**
@@ -64,7 +66,7 @@ public class UserDao {
 	 * @param username
 	 */
 	public void deleteContact(String username){
-	    DemoDBManager.getInstance().deleteContact(username);
+	    DemoDBManager.getInstance(context).deleteContact(username);
 	}
 	
 	/**
@@ -72,30 +74,30 @@ public class UserDao {
 	 * @param user
 	 */
 	public void saveContact(EaseUser user){
-	    DemoDBManager.getInstance().saveContact(user);
+	    DemoDBManager.getInstance(context).saveContact(user);
 	}
 	
 	public void setDisabledGroups(List<String> groups){
-	    DemoDBManager.getInstance().setDisabledGroups(groups);
+	    DemoDBManager.getInstance(context).setDisabledGroups(groups);
     }
     
     public List<String>  getDisabledGroups(){       
-        return DemoDBManager.getInstance().getDisabledGroups();
+        return DemoDBManager.getInstance(context).getDisabledGroups();
     }
     
     public void setDisabledIds(List<String> ids){
-        DemoDBManager.getInstance().setDisabledIds(ids);
+        DemoDBManager.getInstance(context).setDisabledIds(ids);
     }
     
     public List<String> getDisabledIds(){
-        return DemoDBManager.getInstance().getDisabledIds();
+        return DemoDBManager.getInstance(context).getDisabledIds();
     }
     
     public Map<String, RobotUser> getRobotUser(){
-    	return DemoDBManager.getInstance().getRobotList();
+    	return DemoDBManager.getInstance(context).getRobotList();
     }
     
     public void saveRobotUser(List<RobotUser> robotList){
-    	DemoDBManager.getInstance().saveRobotList(robotList);
+    	DemoDBManager.getInstance(context).saveRobotList(robotList);
     }
 }

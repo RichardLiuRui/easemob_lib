@@ -145,7 +145,7 @@ public class LoginActivity extends BaseActivity {
 
 		// After logout，the DemoDB may still be accessed due to async callback, so the DemoDB will be re-opened again.
 		// close it before login to make sure DemoDB not overlap
-        DemoDBManager.getInstance().closeDB();
+        DemoDBManager.getInstance(this).closeDB();
 
         // reset current user name before login
         DemoHelper.getInstance().setCurrentUserName(currentUsername);

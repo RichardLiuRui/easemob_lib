@@ -65,7 +65,7 @@ public class BaseActivity extends EaseBaseActivity {
                     if(activity.isFinishing()) {
                         return;
                     }
-                    if(!CallFloatWindow.getInstance(DemoApplication.getInstance()).isShowing()) {
+                    if(!CallFloatWindow.getInstance(getApplicationContext()).isShowing()) {
                         ConferenceActivity.startConferenceCall(this, null);
                     }
                 }

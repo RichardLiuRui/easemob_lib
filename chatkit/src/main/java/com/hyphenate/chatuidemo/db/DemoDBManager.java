@@ -1,6 +1,8 @@
 package com.hyphenate.chatuidemo.db;
 
+import android.app.Application;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
@@ -21,16 +23,16 @@ import java.util.List;
 import java.util.Map;
 
 public class DemoDBManager {
-    static private DemoDBManager dbMgr = new DemoDBManager();
+    static private DemoDBManager dbMgr;
     private DbOpenHelper dbHelper;
     
-    private DemoDBManager(){
-        dbHelper = DbOpenHelper.getInstance(DemoApplication.getInstance().getApplicationContext());
+    private DemoDBManager(Context application){
+        dbHelper = DbOpenHelper.getInstance(application);
     }
     
-    public static synchronized DemoDBManager getInstance(){
+    public static synchronized DemoDBManager getInstance(Context application){
         if(dbMgr == null){
-            dbMgr = new DemoDBManager();
+            dbMgr = new DemoDBManager(application);
         }
         return dbMgr;
     }

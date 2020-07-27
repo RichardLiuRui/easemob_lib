@@ -226,7 +226,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             }
         });
         //todo 主播第一条展示
-        if (CommonUtils.type == CommonUtils.AUDIENCE) {
+        if (CommonUtils.privateType == CommonUtils.LIVE_PRIVATE_LETTER && CommonUtils.type == CommonUtils.AUDIENCE) {
             if (conversation.conversationId().equals(CommonUtils.anchorAccount)) {
                 EMMessage lastMessage = conversation.getLastMessage();
                 if (lastMessage.getType() == EMMessage.Type.CUSTOM) {

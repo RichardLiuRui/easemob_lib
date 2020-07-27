@@ -34,9 +34,10 @@ public class InviteMessgeDao {
 	static final String COLUMN_NAME_GROUPINVITER = "groupinviter";
 	
 	static final String COLUMN_NAME_UNREAD_MSG_COUNT = "unreadMsgCount";
-	
+	public Context context;
 		
 	public InviteMessgeDao(Context context){
+		this.context = context;
 	}
 	
 	/**
@@ -45,7 +46,7 @@ public class InviteMessgeDao {
 	 * @return  return cursor of the message
 	 */
 	public Integer saveMessage(InviteMessage message){
-		return DemoDBManager.getInstance().saveMessage(message);
+		return DemoDBManager.getInstance(context).saveMessage(message);
 	}
 	
 	/**
@@ -54,7 +55,7 @@ public class InviteMessgeDao {
 	 * @param values
 	 */
 	public void updateMessage(int msgId,ContentValues values){
-	    DemoDBManager.getInstance().updateMessage(msgId, values);
+	    DemoDBManager.getInstance(context).updateMessage(msgId, values);
 	}
 	
 	/**
@@ -62,26 +63,26 @@ public class InviteMessgeDao {
 	 * @return
 	 */
 	public List<InviteMessage> getMessagesList(){
-		return DemoDBManager.getInstance().getMessagesList();
+		return DemoDBManager.getInstance(context).getMessagesList();
 	}
 	
 	public void deleteMessage(String from){
-	    DemoDBManager.getInstance().deleteMessage(from);
+	    DemoDBManager.getInstance(context).deleteMessage(from);
 	}
 
 	public void deleteGroupMessage(String groupId) {
-		DemoDBManager.getInstance().deleteGroupMessage(groupId);
+		DemoDBManager.getInstance(context).deleteGroupMessage(groupId);
 	}
 
 	public void deleteGroupMessage(String groupId, String from) {
-		DemoDBManager.getInstance().deleteGroupMessage(groupId, from);
+		DemoDBManager.getInstance(context).deleteGroupMessage(groupId, from);
 	}
 	
 	public int getUnreadMessagesCount(){
-	    return DemoDBManager.getInstance().getUnreadNotifyCount();
+	    return DemoDBManager.getInstance(context).getUnreadNotifyCount();
 	}
 	
 	public void saveUnreadMessageCount(int count){
-	    DemoDBManager.getInstance().setUnreadNotifyCount(count);
+	    DemoDBManager.getInstance(context).setUnreadNotifyCount(count);
 	}
 }

@@ -18,6 +18,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.hyphenate.chatuidemo.ui.UserActivityLifecycleCallbacks;
+import com.hyphenate.easeui.CommonUtils;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.push.EMPushHelper;
 import com.hyphenate.push.EMPushType;
@@ -44,6 +45,9 @@ public class DemoApplication extends Application {
         applicationContext = this;
         instance = this;
 
+		CommonUtils.setPrivateLetterType(CommonUtils.MY_PRIVATE_LETTER);
+		CommonUtils.setRole(CommonUtils.ANCHOR);
+		CommonUtils.setAnchorAccount("wqx0816");
 		registerActivityLifecycleCallbacks();
 		//init demo helper
         DemoHelper.getInstance().init(applicationContext);

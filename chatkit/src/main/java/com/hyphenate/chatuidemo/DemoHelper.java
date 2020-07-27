@@ -1862,7 +1862,7 @@ public class DemoHelper {
         setContactList(null);
         setRobotList(null);
         getUserProfileManager().reset();
-        DemoDBManager.getInstance().closeDB();
+        DemoDBManager.getInstance(appContext).closeDB();
     }
 
     public void pushActivity(Activity activity) {

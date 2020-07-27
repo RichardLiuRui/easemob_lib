@@ -10,11 +10,21 @@ public class CommonUtils {
 	
 	public static final int AUDIENCE = 1; //观众
 	public static final int ANCHOR = 2; //主播
+
+	public static final int LIVE_PRIVATE_LETTER = 1; //直播间私信
+	public static final int MY_PRIVATE_LETTER = 2; //我的私信
 	//标记是主播还是观众
-	public static Integer type = 1;
+	public static Integer type ;
 	
 	//当前主播的im账号
-	public static String anchorAccount = "wqx0816";
+	public static String anchorAccount = "";
+	
+	//私信类型
+	public static int privateType;
+	
+	public static void setPrivateLetterType (int type) {
+		privateType = type;
+	}
 	
 	//需要跳转的activity
 	public static Class<?> intentClass;

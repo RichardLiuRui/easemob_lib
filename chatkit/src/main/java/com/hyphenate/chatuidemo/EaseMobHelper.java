@@ -85,7 +85,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class DemoHelper {
+public class EaseMobHelper {
     /**
      * data sync listener
      */
@@ -97,7 +97,7 @@ public class DemoHelper {
         void onSyncComplete(boolean success);
     }
 
-    protected static final String TAG = "DemoHelper";
+    protected static final String TAG = "EaseMobHelper";
     
 	private EaseUI easeUI;
 
@@ -112,7 +112,7 @@ public class DemoHelper {
 
 	private UserProfileManager userProManager;
 
-	private static DemoHelper instance = null;
+	private static EaseMobHelper instance = null;
 	
 	private DemoModel demoModel = null;
 	
@@ -158,13 +158,13 @@ public class DemoHelper {
 
     Queue<String> msgQueue = new ConcurrentLinkedQueue<>();
 
-	private DemoHelper() {
+	private EaseMobHelper() {
         executor = Executors.newCachedThreadPool();
 	}
 
-	public synchronized static DemoHelper getInstance() {
+	public synchronized static EaseMobHelper getInstance() {
 		if (instance == null) {
-			instance = new DemoHelper();
+			instance = new EaseMobHelper();
 		}
 		return instance;
 	}
@@ -612,7 +612,7 @@ public class DemoHelper {
             }
         });
         //register incoming call receiver
-        appContext.registerReceiver(callReceiver, callFilter);    
+     //   appContext.registerReceiver(callReceiver, callFilter);    
         //register connection listener
         EMClient.getInstance().addConnectionListener(connectionListener);       
         //register group and contact event listener
@@ -971,7 +971,7 @@ public class DemoHelper {
 
         @Override
         public void onContactDeleted(String username) {
-            Map<String, EaseUser> localUsers = DemoHelper.getInstance().getContactList();
+            Map<String, EaseUser> localUsers = EaseMobHelper.getInstance().getContactList();
             localUsers.remove(username);
             userDao.deleteContact(username);
             inviteMessgeDao.deleteMessage(username);
@@ -1069,7 +1069,7 @@ public class DemoHelper {
                     updateContactNotificationStatus(target, "", InviteMessageStatus.MULTI_DEVICE_CONTACT_BAN);
                     showToast("CONTACT_BAN");
 
-                    Map<String, EaseUser> localUsers = DemoHelper.getInstance().getContactList();
+                    Map<String, EaseUser> localUsers = EaseMobHelper.getInstance().getContactList();
                     localUsers.remove(username);
                     userDao.deleteContact(username);
                     inviteMessgeDao.deleteMessage(username);

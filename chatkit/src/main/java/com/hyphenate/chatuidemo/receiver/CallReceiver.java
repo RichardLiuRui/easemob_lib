@@ -19,11 +19,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.ui.VideoCallActivity;
 import com.hyphenate.chatuidemo.ui.VoiceCallActivity;
-import com.hyphenate.easeui.model.EaseNotifier;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.EasyUtils;
 
@@ -31,7 +30,7 @@ public class CallReceiver extends BroadcastReceiver{
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		if(!DemoHelper.getInstance().isLoggedIn())
+		if(!EaseMobHelper.getInstance().isLoggedIn())
 		    return;
 		//username
 		String from = intent.getStringExtra("from");
@@ -50,7 +49,7 @@ public class CallReceiver extends BroadcastReceiver{
             fullScreenIntent.putExtra("username", from)
                     .putExtra("isComingCall", true).
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            DemoHelper.getInstance().getNotifier().notify(fullScreenIntent, "Hyphenate", content);
+            EaseMobHelper.getInstance().getNotifier().notify(fullScreenIntent, "Hyphenate", content);
 		}else {
             startTargetActivity(context, from, type);
         }

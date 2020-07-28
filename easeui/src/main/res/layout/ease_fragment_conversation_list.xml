@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:hyphenate="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_2A183D"
@@ -14,6 +15,7 @@
         hyphenate:titleBarTitle="@string/session" />
 
     <LinearLayout
+        android:id="@+id/ll_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_2A183D"
@@ -59,7 +61,7 @@
                     android:padding="5dp"
                     android:text="@string/str_ignore_unread"
                     android:textColor="@color/btn_white_normal"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </RelativeLayout>
         </FrameLayout>
     </LinearLayout>

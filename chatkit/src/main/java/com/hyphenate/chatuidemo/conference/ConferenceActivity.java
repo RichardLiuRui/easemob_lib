@@ -45,7 +45,7 @@ import com.hyphenate.chat.EMWaterMarkOption;
 import com.hyphenate.chat.EMWaterMarkPosition;
 import com.hyphenate.chatuidemo.Constant;
 import com.hyphenate.chatuidemo.DemoApplication;
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.ui.BaseActivity;
 import com.hyphenate.chatuidemo.utils.PhoneStateManager;
@@ -227,7 +227,7 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
         init();
 
         EMClient.getInstance().conferenceManager().addConferenceListener(conferenceListener);
-        DemoHelper.getInstance().pushActivity(activity);
+        EaseMobHelper.getInstance().pushActivity(activity);
 
         //注册耳机插拔事件
         registerHeadsetPlugReceiver();
@@ -1135,7 +1135,7 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
     @Override
     protected void onDestroy() {
         EMClient.getInstance().conferenceManager().removeConferenceListener(conferenceListener);
-        DemoHelper.getInstance().popActivity(activity);
+        EaseMobHelper.getInstance().popActivity(activity);
         super.onDestroy();
         audioManager.setMode(AudioManager.MODE_NORMAL);
         audioManager.setMicrophoneMute(false);

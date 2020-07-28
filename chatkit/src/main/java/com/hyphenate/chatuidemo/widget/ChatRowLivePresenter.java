@@ -5,7 +5,7 @@ import android.widget.BaseAdapter;
 
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chatuidemo.Constant;
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.presenter.EaseChatRowPresenter;
 
@@ -26,7 +26,7 @@ public class ChatRowLivePresenter extends EaseChatRowPresenter {
         String confId = message.getStringAttribute(Constant.EM_CONFERENCE_ID, "");
         String confPassword = message.getStringAttribute(Constant.EM_CONFERENCE_PASSWORD,"");
         int type = message.getIntAttribute(Constant.EM_CONFERENCE_TYPE, 0);
-        DemoHelper.getInstance().goLive(confId, confPassword, message.getFrom());
+        EaseMobHelper.getInstance().goLive(confId, confPassword, message.getFrom());
     }
 
 }

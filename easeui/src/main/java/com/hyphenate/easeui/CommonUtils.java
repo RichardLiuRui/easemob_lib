@@ -80,12 +80,12 @@ public class CommonUtils {
 	public interface OnSendTxtMessageListener{
 		void onSendMessage(String userName,String content);
 	}
-//	//忽略未读
-//	public static OnIgnoreUnreadListener onIgnoreUnreadListener;
-//	public static void setOnIgnoreUnreadListener(OnIgnoreUnreadListener listener) {
-//		onIgnoreUnreadListener = listener;
-//	}
-//	public interface OnIgnoreUnreadListener{
-//		void onIgnoreUnread();
-//	}
+	//直播--聊天界面返回事件
+	public static OnLiveChatBackListener onLiveChatBackListener;
+	public static void setOnLiveChatBackListener(OnLiveChatBackListener listener) {
+		onLiveChatBackListener = listener;
+	}
+	public interface OnLiveChatBackListener{
+		void onliveChatBack();
+	}
 }

@@ -41,7 +41,7 @@ import com.hyphenate.chat.EMCallStateChangeListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMirror;
 import com.hyphenate.chat.EMVideoCallHelper;
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.utils.PhoneStateManager;
 import com.hyphenate.chatuidemo.utils.PreferenceManager;
@@ -104,7 +104,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
         }
         setContentView(R.layout.em_activity_video_call);
 
-        DemoHelper.getInstance().isVideoCalling = true;
+        EaseMobHelper.getInstance().isVideoCalling = true;
         callType = 1;
 
         getWindow().addFlags(
@@ -615,7 +615,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
 
     @Override
     protected void onDestroy() {
-        DemoHelper.getInstance().isVideoCalling = false;
+        EaseMobHelper.getInstance().isVideoCalling = false;
         stopMonitor();
         localSurface.getRenderer().dispose();
         localSurface = null;

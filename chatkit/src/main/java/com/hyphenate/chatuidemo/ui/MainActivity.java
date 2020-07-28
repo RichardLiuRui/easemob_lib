@@ -23,8 +23,6 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.PersistableBundle;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -42,28 +40,20 @@ import com.hyphenate.EMClientListener;
 import com.hyphenate.EMContactListener;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.EMMultiDeviceListener;
-import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMConferenceManager;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chatuidemo.Constant;
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.HMSPushHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.db.InviteMessgeDao;
 import com.hyphenate.chatuidemo.db.UserDao;
 import com.hyphenate.chatuidemo.runtimepermissions.PermissionsManager;
 import com.hyphenate.chatuidemo.runtimepermissions.PermissionsResultAction;
-import com.hyphenate.chatuidemo.utils.PreferenceManager;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.EMLog;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @SuppressLint("NewApi")
 public class MainActivity extends BaseActivity {
@@ -118,7 +108,7 @@ public class MainActivity extends BaseActivity {
 				(getIntent().getBooleanExtra(Constant.ACCOUNT_REMOVED, false) ||
 						getIntent().getBooleanExtra(Constant.ACCOUNT_KICKED_BY_CHANGE_PASSWORD, false) ||
 						getIntent().getBooleanExtra(Constant.ACCOUNT_KICKED_BY_OTHER_DEVICE, false))) {
-			DemoHelper.getInstance().logout(false,null);
+			EaseMobHelper.getInstance().logout(false,null);
 			finish();
 			startActivity(new Intent(this, LoginActivity.class));
 			return;
@@ -162,7 +152,7 @@ public class MainActivity extends BaseActivity {
                     .commit();
         }
 
-		//register broadcast receiver to receive the change of group from DemoHelper
+		//register broadcast receiver to receive the change of group from EaseMobHelper
 		registerBroadcastReceiver();
 
 		EMClient.getInstance().contactManager().setContactListener(new MyContactListener());
@@ -261,7 +251,7 @@ public class MainActivity extends BaseActivity {
 		public void onMessageReceived(List<EMMessage> messages) {
 			// notify new message
 			for (EMMessage message: messages) {
-				DemoHelper.getInstance().getNotifier().vibrateAndPlayTone(message);
+				EaseMobHelper.getInstance().getNotifier().vibrateAndPlayTone(message);
 			}
 			refreshUIWithMessage();
 		}
@@ -470,7 +460,7 @@ public class MainActivity extends BaseActivity {
 
 		// unregister this event listener when this activity enters the
 		// background
-		DemoHelper sdkHelper = DemoHelper.getInstance();
+		EaseMobHelper sdkHelper = EaseMobHelper.getInstance();
 		sdkHelper.pushActivity(this);
 
 		EMClient.getInstance().chatManager().addMessageListener(messageListener);
@@ -483,7 +473,7 @@ public class MainActivity extends BaseActivity {
 
 		EMClient.getInstance().chatManager().removeMessageListener(messageListener);
 		EMClient.getInstance().removeClientListener(clientListener);
-		DemoHelper sdkHelper = DemoHelper.getInstance();
+		EaseMobHelper sdkHelper = EaseMobHelper.getInstance();
 		sdkHelper.popActivity(this);
 	}
 
@@ -536,7 +526,7 @@ public class MainActivity extends BaseActivity {
 	 */
 	private void showExceptionDialog(String exceptionType) {
 	    isExceptionDialogShow = true;
-		DemoHelper.getInstance().logout(false,null);
+		EaseMobHelper.getInstance().logout(false,null);
 		String st = getResources().getString(R.string.Logoff_notification);
 		if (!MainActivity.this.isFinishing()) {
 			// clear up global variables
@@ -596,7 +586,7 @@ public class MainActivity extends BaseActivity {
             
             @Override
             public void onReceive(Context context, Intent intent) {
-                DemoHelper.getInstance().logout(false,new EMCallBack() {
+                EaseMobHelper.getInstance().logout(false,new EMCallBack() {
                     
                     @Override
                     public void onSuccess() {

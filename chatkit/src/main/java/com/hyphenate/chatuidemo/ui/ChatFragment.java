@@ -2,17 +2,13 @@ package com.hyphenate.chatuidemo.ui;
 
 import android.app.Activity;
 import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -23,21 +19,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
-import com.hyphenate.chat.EMCallOptions;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
-import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.chatuidemo.Constant;
-import com.hyphenate.chatuidemo.DemoHelper;
-import com.hyphenate.chatuidemo.DemoModel;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.conference.ConferenceActivity;
 import com.hyphenate.chatuidemo.conference.LiveActivity;
-import com.hyphenate.chatuidemo.domain.EmojiconExampleGroupData;
 import com.hyphenate.chatuidemo.domain.RobotUser;
-import com.hyphenate.chatuidemo.utils.PreferenceManager;
 import com.hyphenate.chatuidemo.widget.ChatRowConferenceInvitePresenter;
 import com.hyphenate.chatuidemo.widget.ChatRowLivePresenter;
 import com.hyphenate.chatuidemo.widget.EaseChatRecallPresenter;
@@ -49,7 +40,6 @@ import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
 import com.hyphenate.easeui.ui.EaseDingMsgSendActivity;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
-import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenu;
 import com.hyphenate.easeui.widget.presenter.EaseChatRowPresenter;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
@@ -60,7 +50,6 @@ import com.hyphenate.util.VersionUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -97,19 +86,19 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState,
-                DemoHelper.getInstance().getModel().isMsgRoaming() && (chatType != EaseConstant.CHATTYPE_CHATROOM));
+                EaseMobHelper.getInstance().getModel().isMsgRoaming() && (chatType != EaseConstant.CHATTYPE_CHATROOM));
     }
 
     @Override
     protected boolean turnOnTyping() {
-        return DemoHelper.getInstance().getModel().isShowMsgTyping();
+        return EaseMobHelper.getInstance().getModel().isShowMsgTyping();
     }
 
     @Override
     protected void setUpView() {
         setChatFragmentHelper(this);
         if (chatType == Constant.CHATTYPE_SINGLE) { 
-            Map<String,RobotUser> robotMap = DemoHelper.getInstance().getRobotList();
+            Map<String,RobotUser> robotMap = EaseMobHelper.getInstance().getRobotList();
             if(robotMap!=null && robotMap.containsKey(toChatUsername)){
                 isRobot = true;
             }
@@ -120,6 +109,13 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
             @Override
             public void onClick(View v) {
+                if (CommonUtils.privateType == CommonUtils.LIVE_PRIVATE_LETTER) {
+                    CommonUtils.OnLiveChatBackListener listener = CommonUtils.onLiveChatBackListener;
+                    if (listener != null) {
+                        listener.onliveChatBack();
+                    }
+                    return;
+                }
                 if (EasyUtils.isSingleActivity(getActivity())) {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);

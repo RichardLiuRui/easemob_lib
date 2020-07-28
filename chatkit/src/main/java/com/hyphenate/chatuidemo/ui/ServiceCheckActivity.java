@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMCheckType;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 
@@ -38,8 +38,8 @@ public class ServiceCheckActivity extends BaseActivity {
         passwordEditText = (EditText) findViewById(R.id.password);
         serviceCheckResultView = (EditText) findViewById(R.id.et_service_check);
 
-        if (DemoHelper.getInstance().getCurrentUsernName() != null) {
-            usernameEditText.setText(DemoHelper.getInstance().getCurrentUsernName());
+        if (EaseMobHelper.getInstance().getCurrentUsernName() != null) {
+            usernameEditText.setText(EaseMobHelper.getInstance().getCurrentUsernName());
         }
 
         // Set the username EditText not editable.

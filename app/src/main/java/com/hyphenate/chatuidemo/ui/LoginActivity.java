@@ -33,7 +33,7 @@ import android.widget.Toast;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chatuidemo.DemoApplication;
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.db.DemoDBManager;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
@@ -56,7 +56,7 @@ public class LoginActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		// enter the main activity if already logged in
-		if (DemoHelper.getInstance().isLoggedIn()) {
+		if (EaseMobHelper.getInstance().isLoggedIn()) {
 			autoLogin = true;
 			startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
@@ -98,8 +98,8 @@ public class LoginActivity extends BaseActivity {
 			}
 		});
 
-		if (DemoHelper.getInstance().getCurrentUsernName() != null) {
-			usernameEditText.setText(DemoHelper.getInstance().getCurrentUsernName());
+		if (EaseMobHelper.getInstance().getCurrentUsernName() != null) {
+			usernameEditText.setText(EaseMobHelper.getInstance().getCurrentUsernName());
 		}
 
 		TextView serviceCheckTV = (TextView) findViewById(R.id.txt_service_ckeck);
@@ -148,7 +148,7 @@ public class LoginActivity extends BaseActivity {
         DemoDBManager.getInstance(this).closeDB();
 
         // reset current user name before login
-        DemoHelper.getInstance().setCurrentUserName(currentUsername);
+        EaseMobHelper.getInstance().setCurrentUserName(currentUsername);
 
 		final long start = System.currentTimeMillis();
 		// call login method
@@ -176,7 +176,7 @@ public class LoginActivity extends BaseActivity {
 				}
 
 				// get user's info (this should be get from App's server or 3rd party service)
-				DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
+				EaseMobHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
 
 				Intent intent = new Intent(LoginActivity.this,MainActivity.class);
 				startActivity(intent);

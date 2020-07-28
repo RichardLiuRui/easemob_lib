@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMPushConfigs;
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.DemoModel;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.easeui.widget.EaseSwitchButton;
@@ -85,7 +85,7 @@ public class OfflinePushSettingsActivity extends BaseActivity implements Compoun
             }
         });
 
-        settingsModel = DemoHelper.getInstance().getModel();
+        settingsModel = EaseMobHelper.getInstance().getModel();
         if (settingsModel.isUseFCM()) {
             useFCMSwitch.openSwitch();
         } else {

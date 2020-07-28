@@ -37,7 +37,7 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chatuidemo.Constant;
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.DemoModel;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.utils.PreferenceManager;
@@ -195,7 +195,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		pushNick=(LinearLayout) getView().findViewById(R.id.ll_set_push_nick);
 		edit_custom_appkey = (EditText) getView().findViewById(R.id.edit_custom_appkey);
 
-		settingsModel = DemoHelper.getInstance().getModel();
+		settingsModel = EaseMobHelper.getInstance().getModel();
 		chatOptions = EMClient.getInstance().getOptions();
 		
 		blacklistContainer.setOnClickListener(this);
@@ -505,7 +505,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		pd.setMessage(st);
 		pd.setCanceledOnTouchOutside(false);
 		pd.show();
-		DemoHelper.getInstance().logout(true,new EMCallBack() {
+		EaseMobHelper.getInstance().logout(true,new EMCallBack() {
 			
 			@Override
 			public void onSuccess() {

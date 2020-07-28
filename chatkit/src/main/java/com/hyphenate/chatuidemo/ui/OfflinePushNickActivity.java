@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.R;
 
 public class OfflinePushNickActivity extends BaseActivity {
@@ -55,7 +55,7 @@ public class OfflinePushNickActivity extends BaseActivity {
 								}
 							});
 						} else {
-							boolean updateOK= DemoHelper.getInstance().getUserProfileManager().updateCurrentUserNickName(inputNickName.getText().toString());
+							boolean updateOK= EaseMobHelper.getInstance().getUserProfileManager().updateCurrentUserNickName(inputNickName.getText().toString());
 							if (!updateOK) {
 								runOnUiThread(new Runnable() {
 									public void run() {

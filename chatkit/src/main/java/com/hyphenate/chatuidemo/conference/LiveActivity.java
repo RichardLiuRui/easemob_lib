@@ -9,7 +9,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -32,7 +31,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMStreamParam;
 import com.hyphenate.chat.EMStreamStatistics;
 import com.hyphenate.chatuidemo.Constant;
-import com.hyphenate.chatuidemo.DemoHelper;
+import com.hyphenate.chatuidemo.EaseMobHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.ui.BaseActivity;
 import com.hyphenate.chatuidemo.utils.PhoneStateManager;
@@ -167,7 +166,7 @@ public class LiveActivity extends BaseActivity implements EMConferenceListener {
         init();
 
         EMClient.getInstance().conferenceManager().addConferenceListener(conferenceListener);
-        DemoHelper.getInstance().pushActivity(activity);
+        EaseMobHelper.getInstance().pushActivity(activity);
         registerMessageListener();
     }
 
@@ -526,7 +525,7 @@ public class LiveActivity extends BaseActivity implements EMConferenceListener {
 
     private void inviteUserToJoinConference() {
         if (TextUtils.isEmpty(groupId)) { // 联系人界面入口直播，邀请全部联系人
-            Collection<EaseUser> contacts = DemoHelper.getInstance().getContactList().values();
+            Collection<EaseUser> contacts = EaseMobHelper.getInstance().getContactList().values();
             for (EaseUser contact : contacts) {
                 // 通过消息的方式邀请对方加入
                 sendInviteMessage(contact.getUsername(), false);
@@ -899,7 +898,7 @@ public class LiveActivity extends BaseActivity implements EMConferenceListener {
     @Override
     protected void onDestroy() {
         EMClient.getInstance().conferenceManager().removeConferenceListener(conferenceListener);
-        DemoHelper.getInstance().popActivity(activity);
+        EaseMobHelper.getInstance().popActivity(activity);
         super.onDestroy();
         audioManager.setMode(AudioManager.MODE_NORMAL);
         audioManager.setMicrophoneMute(false);

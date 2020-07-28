@@ -45,12 +45,12 @@ public class DemoApplication extends Application {
         applicationContext = this;
         instance = this;
 
-		CommonUtils.setPrivateLetterType(CommonUtils.MY_PRIVATE_LETTER);
+		CommonUtils.setPrivateLetterType(CommonUtils.LIVE_PRIVATE_LETTER);
 		CommonUtils.setRole(CommonUtils.ANCHOR);
 		CommonUtils.setAnchorAccount("wqx0816");
 		registerActivityLifecycleCallbacks();
 		//init demo helper
-        DemoHelper.getInstance().init(applicationContext);
+        EaseMobHelper.getInstance().init(applicationContext);
 
         // 请确保环信SDK相关方法运行在主进程，子进程不会初始化环信SDK（该逻辑在EaseUI.java中）
 		if (EaseUI.getInstance().isMainProcess(this)) {

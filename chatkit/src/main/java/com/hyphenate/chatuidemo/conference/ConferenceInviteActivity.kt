@@ -15,7 +15,7 @@ import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMConferenceMember
 import com.hyphenate.chat.EMCursorResult
 import com.hyphenate.chatuidemo.Constant
-import com.hyphenate.chatuidemo.DemoHelper
+import com.hyphenate.chatuidemo.EaseMobHelper
 import com.hyphenate.chatuidemo.R
 import com.hyphenate.chatuidemo.ui.BaseActivity
 import com.hyphenate.easeui.utils.EaseUserUtils
@@ -132,7 +132,7 @@ class ConferenceInviteActivity : BaseActivity() {
 
         Thread(Runnable {
             if (TextUtils.isEmpty(groupId)) { // 获取当前账号的所有联系人
-                DemoHelper.getInstance().contactList.values
+                EaseMobHelper.getInstance().contactList.values
                         .forEach {
                             contactList.add(it.username)
                         }

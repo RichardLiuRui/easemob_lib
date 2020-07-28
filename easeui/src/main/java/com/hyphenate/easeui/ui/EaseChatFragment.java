@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
@@ -53,6 +54,7 @@ import com.hyphenate.easeui.model.EaseCompat;
 import com.hyphenate.easeui.model.EaseDingMessageHelper;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.util.VersionUtils;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseAlertDialog.AlertDialogUser;
@@ -310,10 +312,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
             // set title
             if(EaseUserUtils.getUserInfo(toChatUsername) != null){
-                EaseUser user = EaseUserUtils.getUserInfo(toChatUsername);
-                if (user != null) {
-                    titleBar.setTitle(user.getNickname());
-                }
+                //todo 聊天界面userName
+                titleBar.setTitle(EaseUserUtils.setUserNick(toChatUsername));
+//                EaseUser user = EaseUserUtils.getUserInfo(toChatUsername);
+//                if (user != null) {
+//                    titleBar.setTitle(user.getNickname());
+//                }
             }
         //   titleBar.setRightImageResource(R.drawable.ease_mm_title_remove);
         } else {
@@ -337,11 +341,23 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             onConversationInit();
             onMessageListInit();
         }
+        //todo 设置聊天背景为圆角
+        if (CommonUtils.privateType == CommonUtils.LIVE_PRIVATE_LETTER) {
+            getView().findViewById(R.id.rl_root).setBackground(getResources().getDrawable(R.drawable.live_sdk_toobar_bg));
+          
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) titleBar.getLayoutParams();
+            layoutParams.setMargins(0,20,0,0);
+        } else {
+           // android:background="@color/color_2A183D"
+            getView().findViewById(R.id.rl_root).setBackgroundColor(getResources().getColor(R.color.color_2A183D));
+
+        }
 
         titleBar.setLeftLayoutClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
+               
                 onBackPressed();
             }
         });

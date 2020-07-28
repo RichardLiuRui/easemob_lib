@@ -1,6 +1,7 @@
 package com.hyphenate.easeui.utils;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,16 +45,20 @@ public class EaseUserUtils {
 	 */
 	public static void setUserAvatar(Context context, String username, ImageView imageView) {
 		//todo 设置用户头像
-		if (CommonUtils.userAvatarBean != null && CommonUtils.userAvatarBean.getList() != null && CommonUtils.userAvatarBean.getList().size() > 0) {
-			List<UserAvatarBean.UserAvatar> list = CommonUtils.userAvatarBean.getList();
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).getImAccount().equals(username)) {
-					Glide.with(context).load(list.get(i).getAvatarUrl()).into(imageView);
-				}
-			}
-		} else {
-			Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
+		CommonUtils.OnSetAvatarListener listener = CommonUtils.onSetAvatarListener;
+		if (listener != null) {
+			listener.onSetAvatar(context,username,imageView);
 		}
+//		if (CommonUtils.userAvatarBean != null && CommonUtils.userAvatarBean.getList() != null && CommonUtils.userAvatarBean.getList().size() > 0) {
+//			List<UserAvatarBean.UserAvatar> list = CommonUtils.userAvatarBean.getList();
+//			for (int i = 0; i < list.size(); i++) {
+//				if (list.get(i).getImAccount().equals(username)) {
+//					Glide.with(context).load(list.get(i).getAvatarUrl()).into(imageView);
+//				}
+//			}
+//		} else {
+//			Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
+//		}
 //    	EaseUser user = getUserInfo(username);
 //        if(user != null && user.getAvatar() != null){
 //            try {
@@ -74,45 +79,30 @@ public class EaseUserUtils {
 	/**
 	 * set user's nickname
 	 */
-	public static void setUserNick(String username, TextView textView) {
+	public static void setUserNick(String username, View textView) {
 		//todo 设置用户名
-		if (CommonUtils.userAvatarBean != null && CommonUtils.userAvatarBean.getList() != null && CommonUtils.userAvatarBean.getList().size() > 0) {
-			List<UserAvatarBean.UserAvatar> list = CommonUtils.userAvatarBean.getList();
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).getImAccount().equals(username)) {
-					textView.setText(list.get(i).getNickName());
-				}
-			}
-		} else {
-			if (textView != null) {
-				EaseUser user = getUserInfo(username);
-				if (user != null && user.getNickname() != null) {
-					textView.setText(user.getNickname());
-				} else {
-					textView.setText(username);
-				}
-			}
+		CommonUtils.OnSetUserNameListener listener = CommonUtils.onSetUserNameListener;
+		if (listener != null) {
+			listener.onSetUserName(username,textView);
 		}
+//		if (CommonUtils.userAvatarBean != null && CommonUtils.userAvatarBean.getList() != null && CommonUtils.userAvatarBean.getList().size() > 0) {
+//			List<UserAvatarBean.UserAvatar> list = CommonUtils.userAvatarBean.getList();
+//			for (int i = 0; i < list.size(); i++) {
+//				if (list.get(i).getImAccount().equals(username)) {
+//					textView.setText(list.get(i).getNickName());
+//				}
+//			}
+//		} else {
+//			if (textView != null) {
+//				EaseUser user = getUserInfo(username);
+//				if (user != null && user.getNickname() != null) {
+//					textView.setText(user.getNickname());
+//				} else {
+//					textView.setText(username);
+//				}
+//			}
+//		}
 
 	}
 
-	public static String setUserNick(String username) {
-		//todo 设置用户名
-		if (CommonUtils.userAvatarBean != null && CommonUtils.userAvatarBean.getList() != null && CommonUtils.userAvatarBean.getList().size() > 0) {
-			List<UserAvatarBean.UserAvatar> list = CommonUtils.userAvatarBean.getList();
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).getImAccount().equals(username)) {
-					return list.get(i).getNickName();
-				}
-			}
-		} else {
-			EaseUser user = getUserInfo(username);
-			if (user != null && user.getNickname() != null) {
-				return user.getNickname();
-			} else {
-				return username;
-			}
-		}
-		return "";
-	}
 }

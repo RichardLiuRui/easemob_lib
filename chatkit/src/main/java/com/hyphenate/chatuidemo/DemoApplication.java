@@ -46,7 +46,7 @@ public class DemoApplication extends Application {
         instance = this;
 
 		CommonUtils.setPrivateLetterType(CommonUtils.LIVE_PRIVATE_LETTER);
-		CommonUtils.setRole(CommonUtils.ANCHOR);
+		CommonUtils.setRole(CommonUtils.AUDIENCE);
 		CommonUtils.setAnchorAccount("wqx0816");
 		registerActivityLifecycleCallbacks();
 		//init demo helper

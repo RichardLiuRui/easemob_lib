@@ -313,7 +313,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             // set title
             if(EaseUserUtils.getUserInfo(toChatUsername) != null){
                 //todo 聊天界面userName
-                titleBar.setTitle(EaseUserUtils.setUserNick(toChatUsername));
+                EaseUserUtils.setUserNick(toChatUsername,titleBar);
+               // titleBar.setTitle();
 //                EaseUser user = EaseUserUtils.getUserInfo(toChatUsername);
 //                if (user != null) {
 //                    titleBar.setTitle(user.getNickname());
@@ -344,7 +345,6 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         //todo 设置聊天背景为圆角
         if (CommonUtils.privateType == CommonUtils.LIVE_PRIVATE_LETTER) {
             getView().findViewById(R.id.rl_root).setBackground(getResources().getDrawable(R.drawable.live_sdk_toobar_bg));
-          
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) titleBar.getLayoutParams();
             layoutParams.setMargins(0,20,0,0);
         } else {

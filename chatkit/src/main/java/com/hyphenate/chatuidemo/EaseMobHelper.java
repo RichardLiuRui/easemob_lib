@@ -672,7 +672,8 @@ public class EaseMobHelper {
         if(!isGroupAndContactListenerRegisted){
             EMClient.getInstance().groupManager().addGroupChangeListener(new MyGroupChangeListener());
             EMClient.getInstance().contactManager().setContactListener(new MyContactListener());
-            EMClient.getInstance().addMultiDeviceListener(new MyMultiDeviceListener());
+            //todo 多端登录
+         //   EMClient.getInstance().addMultiDeviceListener(new MyMultiDeviceListener());
             isGroupAndContactListenerRegisted = true;
         }
         

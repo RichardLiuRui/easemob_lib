@@ -326,7 +326,7 @@
 
     <string name="custom_message">自定义消息: %1$s</string>
     <string name="str_private_letter">私信</string>
-    <string name="str_conversation_desc">hi,快来跟我聊聊吧</string>
+    <string name="str_conversation_desc">hi,快来跟我私聊吧</string>
     <string name="str_my_private_letter">我的私信</string>
     <string name="str_ignore_unread">忽略未读</string>
     <string name="str_private_letter_null">空空如也</string>

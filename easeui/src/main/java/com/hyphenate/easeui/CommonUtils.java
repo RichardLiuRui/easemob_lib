@@ -1,5 +1,8 @@
 package com.hyphenate.easeui;
 
+import android.content.Context;
+import android.view.View;
+
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeui.model.UserAvatarBean;
 
@@ -87,5 +90,23 @@ public class CommonUtils {
 	}
 	public interface OnLiveChatBackListener{
 		void onliveChatBack();
+	}
+
+	//设置头像
+	public static OnSetAvatarListener onSetAvatarListener;
+	public static void setOnSetAvatarListener(OnSetAvatarListener listener) {
+		onSetAvatarListener = listener;
+	}
+	public interface OnSetAvatarListener{
+		void onSetAvatar(Context context, String userName, View view);
+	}
+
+	//设置用户名
+	public static OnSetUserNameListener onSetUserNameListener;
+	public static void setOnSetUserNameListener(OnSetUserNameListener listener) {
+		onSetUserNameListener = listener;
+	}
+	public interface OnSetUserNameListener{
+		void onSetUserName(String userName, View view);
 	}
 }

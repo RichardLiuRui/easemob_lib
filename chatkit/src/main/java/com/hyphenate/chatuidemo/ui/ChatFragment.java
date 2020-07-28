@@ -116,6 +116,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     }
                     return;
                 }
+                
                 if (EasyUtils.isSingleActivity(getActivity())) {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);

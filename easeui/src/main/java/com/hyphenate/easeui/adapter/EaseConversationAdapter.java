@@ -185,6 +185,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                     BufferType.SPANNABLE);
             if(content != null){
                 holder.message.setText(content);
+            } else {
+                holder.message.setText(context.getResources().getString(R.string.str_conversation_desc));
             }
             holder.time.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));
             if (lastMessage.direct() == EMMessage.Direct.SEND && lastMessage.status() == EMMessage.Status.FAIL) {
@@ -230,7 +232,6 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             if (conversation.conversationId().equals(CommonUtils.anchorAccount)) {
                 EMMessage lastMessage = conversation.getLastMessage();
                 if (lastMessage.getType() == EMMessage.Type.CUSTOM) {
-                    holder.message.setText(context.getResources().getString(R.string.str_conversation_desc));
                     holder.ll_time_num.setVisibility(View.GONE);
                     holder.iv_private_letter.setVisibility(View.VISIBLE);
                 }else {
@@ -245,8 +246,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         EMMessage lastMessage = conversation.getLastMessage();
         if (lastMessage != null) {
             if (lastMessage.getType() == EMMessage.Type.CUSTOM) {
-                holder.message.setText("");
-                
+                holder.message.setText(context.getResources().getString(R.string.str_conversation_desc));
             }
         }
         return convertView;

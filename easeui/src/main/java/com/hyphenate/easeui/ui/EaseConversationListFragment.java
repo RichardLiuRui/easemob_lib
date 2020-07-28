@@ -80,18 +80,18 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		conversationListView = view.findViewById(R.id.list);
 		llNull = view.findViewById(R.id.ll_null);
-//		getView().findViewById(R.id.tv_ignore_unread).setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View view) {
-//				for (int i = 0; i < loadConversationList().size(); i++) {
-//					EMConversation conversation = EMClient.getInstance().chatManager().getConversation(loadConversationList().get(i).conversationId());
-//					//指定会话消息未读数清零
-//					conversation.markAllMessagesAsRead();
-//					refresh();
-//				}
-//
-//			}
-//		});
+		getView().findViewById(R.id.tv_ignore_unread).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				for (int i = 0; i < loadConversationList().size(); i++) {
+					EMConversation conversation = EMClient.getInstance().chatManager().getConversation(loadConversationList().get(i).conversationId());
+					//指定会话消息未读数清零
+					conversation.markAllMessagesAsRead();
+					refresh();
+				}
+
+			}
+		});
 		//   query = (EditText) getView().findViewById(R.id.query);
 		// button to clear content in search bar
 		//     clearSearch = (ImageButton) getView().findViewById(R.id.search_clear);
@@ -100,7 +100,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 
 	@Override
 	protected void setUpView() {
-		conversationList.addAll(loadConversationList());
+		conversationList.addAll(fristLoadConversationList());
 
 		conversationListView.init(conversationList);
 
@@ -251,6 +251,76 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 		//	CommonUtils.setRole(CommonUtils.AUDIENCE);
 		if (CommonUtils.privateType == CommonUtils.LIVE_PRIVATE_LETTER && CommonUtils.type == CommonUtils.AUDIENCE) {
 			//判断会话列表是否包含当前主播
+//			boolean contains = false;
+//			for (int i = 0; i < list.size(); i++) {
+//				if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+//					contains = true;
+//					break;
+//				}
+//			}
+//			//不包含  发送一条空消息
+//			if (!contains) {
+//				Log.e("111", "不包含");
+//				EMMessage customMessage = EMMessage.createSendMessage(EMMessage.Type.CUSTOM);
+//				EMCustomMessageBody customBody = new EMCustomMessageBody("top");
+//				customMessage.addBody(customBody);
+//				customMessage.setTo(CommonUtils.anchorAccount);
+//				EMClient.getInstance().chatManager().sendMessage(customMessage);
+//			}
+			//将当前主播显示在第一条
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+					EMConversation emConversation = list.get(i);
+					list.remove(i);
+					list.add(0, emConversation);
+				}
+			}
+		}
+		//todo 返回列表为0 展示缺省页
+		if (list.size() > 0) {
+			llNull.setVisibility(View.GONE);
+			conversationListView.setVisibility(View.VISIBLE);
+		} else {
+			llNull.setVisibility(View.VISIBLE);
+			conversationListView.setVisibility(View.GONE);
+		}
+
+		return list;
+	}
+	/**
+	 * load conversation list
+	 *首次加载
+	 * @return +
+	 */
+	protected List<EMConversation> fristLoadConversationList() {
+		// get all conversations
+		Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
+		List<Pair<Long, EMConversation>> sortList = new ArrayList<Pair<Long, EMConversation>>();
+		/**
+		 * lastMsgTime will change if there is new message during sorting
+		 * so use synchronized to make sure timestamp of last message won't change.
+		 */
+		synchronized (conversations) {
+			for (EMConversation conversation : conversations.values()) {
+				if (conversation.getAllMessages().size() != 0) {
+					sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+				}
+			}
+		}
+		try {
+			// Internal is TimSort algorithm, has bug
+			sortConversationByLastChatTime(sortList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		List<EMConversation> list = new ArrayList<EMConversation>();
+		for (Pair<Long, EMConversation> sortItem : sortList) {
+			list.add(sortItem.second);
+		}
+		//todo 当前为观众时添加当前主播为第一条
+		//	CommonUtils.setRole(CommonUtils.AUDIENCE);
+		if (CommonUtils.privateType == CommonUtils.LIVE_PRIVATE_LETTER && CommonUtils.type == CommonUtils.AUDIENCE) {
+			//判断会话列表是否包含当前主播
 			boolean contains = false;
 			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
@@ -287,7 +357,6 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 
 		return list;
 	}
-
 	/**
 	 * sort conversations according time stamp of last message
 	 *

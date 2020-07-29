@@ -503,15 +503,15 @@ public class EaseMobHelper {
             public void onDisconnected(int error) {
                 EMLog.d("global listener", "onDisconnect" + error);
                 if (error == EMError.USER_REMOVED) {
-                    onUserException(Constant.ACCOUNT_REMOVED);
+                 //   onUserException(Constant.ACCOUNT_REMOVED);
                 } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
-                    onUserException(Constant.ACCOUNT_CONFLICT);
+                  //  onUserException(Constant.ACCOUNT_CONFLICT);
                 } else if (error == EMError.SERVER_SERVICE_RESTRICTED) {
-                    onUserException(Constant.ACCOUNT_FORBIDDEN);
+                 //   onUserException(Constant.ACCOUNT_FORBIDDEN);
                 } else if (error == EMError.USER_KICKED_BY_CHANGE_PASSWORD) {
-                    onUserException(Constant.ACCOUNT_KICKED_BY_CHANGE_PASSWORD);
+                //    onUserException(Constant.ACCOUNT_KICKED_BY_CHANGE_PASSWORD);
                 } else if (error == EMError.USER_KICKED_BY_OTHER_DEVICE) {
-                    onUserException(Constant.ACCOUNT_KICKED_BY_OTHER_DEVICE);
+                //    onUserException(Constant.ACCOUNT_KICKED_BY_OTHER_DEVICE);
                 }
             }
 

@@ -86,7 +86,7 @@ public class CommonUtils {
 		onSendTxtMessageListener = listener;
 	}
 	public interface OnSendTxtMessageListener{
-		void onSendMessage(String userName,String content);
+		void onSendMessage(Context context,String userName,String content);
 	}
 	//直播--聊天界面返回事件
 	public static OnLiveChatBackListener onLiveChatBackListener;

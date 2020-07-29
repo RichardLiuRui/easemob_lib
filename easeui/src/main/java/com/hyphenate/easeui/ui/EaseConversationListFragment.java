@@ -278,14 +278,17 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 			}
 		}
 
+		//外循环是循环的次数  去重
 		for (int i = 0; i < list.size(); i++) {
-			//去重
-			if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
-				if (!list.get(i).conversationId().equals(CommonUtils.currentUserName)) {
-					list.remove(i);
+			for (int j = list.size() - 1; j > i; j--) {
+				//内循环是 外循环一次比较的次数
+				if (list.get(i).conversationId().startsWith(list.get(j).conversationId())) {
+					if (!list.get(j).conversationId().equals(CommonUtils.currentUserName))
+					list.remove(j);
 				}
 			}
 		}
+		
 		for (int i = 0; i < list.size(); i++) {
 			if (!list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
 				if (list.get(i).getAllMessages().size() == 0) {
@@ -302,7 +305,6 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 			llNull.setVisibility(View.VISIBLE);
 			conversationListView.setVisibility(View.GONE);
 		}
-
 		return list;
 	}
 
@@ -368,16 +370,25 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 			}
 		}
 		//todo 去重多端登录
+//		for (int i = 0; i < list.size(); i++) {
+//			if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
+//				if (!list.get(i).conversationId().equals(CommonUtils.currentUserName))
+//					list.remove(i);
+//			}
+//		}
+
+		//外循环是循环的次数  去重
 		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
-				if (!list.get(i).conversationId().equals(CommonUtils.currentUserName))
-					list.remove(i);
+			for (int j = list.size() - 1; j > i; j--) {
+				//内循环是 外循环一次比较的次数
+				if (list.get(i).conversationId().startsWith(list.get(j).conversationId())) {
+					if (!list.get(j).conversationId().equals(CommonUtils.currentUserName))
+					list.remove(j);
+				}
 			}
 		}
-
 		for (int i = 0; i < list.size(); i++) {
 			if (!list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
-
 				if (list.get(i).getAllMessages().size() == 0) {
 					EMClient.getInstance().chatManager().deleteConversation(list.get(i).conversationId(), false);
 					refresh();

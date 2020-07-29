@@ -100,7 +100,7 @@ public class EaseCommonUtils {
             digest = getString(context, R.string.video);
             break;
             case CUSTOM:
-            digest = getString(context, R.string.custom);
+         //   digest = getString(context, R.string.custom);
             break;
         case TXT:
             EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();

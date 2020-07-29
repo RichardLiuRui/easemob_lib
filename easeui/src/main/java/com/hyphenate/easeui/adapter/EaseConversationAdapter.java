@@ -3,6 +3,7 @@ package com.hyphenate.easeui.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -181,13 +182,15 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             if(cvsListHelper != null){
                 content = cvsListHelper.onSetItemSecondaryText(lastMessage);
             }
-            holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),
-                    BufferType.SPANNABLE);
-            if(content != null){
-                holder.message.setText(content);
+            Spannable smiledText = EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext())));
+            if (!TextUtils.isEmpty(smiledText)) {
+                holder.message.setText(smiledText,BufferType.SPANNABLE);
             } else {
                 holder.message.setText(context.getResources().getString(R.string.str_conversation_desc));
             }
+            if(content != null){
+                holder.message.setText(content);
+            } 
             holder.time.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));
             if (lastMessage.direct() == EMMessage.Direct.SEND && lastMessage.status() == EMMessage.Status.FAIL) {
                 holder.msgState.setVisibility(View.VISIBLE);
@@ -243,12 +246,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 holder.iv_private_letter.setVisibility(View.GONE);
             }
         }
-        EMMessage lastMessage = conversation.getLastMessage();
-        if (lastMessage != null) {
-            if (lastMessage.getType() == EMMessage.Type.CUSTOM) {
-                holder.message.setText(context.getResources().getString(R.string.str_conversation_desc));
-            }
-        }
+        
         return convertView;
     }
     

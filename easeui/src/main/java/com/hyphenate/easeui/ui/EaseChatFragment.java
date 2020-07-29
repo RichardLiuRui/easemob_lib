@@ -211,13 +211,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             @Override
             public void onSendMessage(String content) {
                 //todo 发送消息  观众需要接口回调调用service接口发送消息
-                if (CommonUtils.type == CommonUtils.AUDIENCE) {
-                    CommonUtils.OnSendTxtMessageListener listener = CommonUtils.onSendTxtMessageListener;
-                    if (listener != null) {
-                        listener.onSendMessage(getActivity(), toChatUsername, content);
-                    }
-                    return;
-                }
+//                if (CommonUtils.type == CommonUtils.AUDIENCE) {
+//                    CommonUtils.OnSendTxtMessageListener listener = CommonUtils.onSendTxtMessageListener;
+//                    if (listener != null) {
+//                        listener.onSendMessage(getActivity(), toChatUsername, content);
+//                    }
+//                    return;
+//                }
                 sendTextMessage(content);
             }
 

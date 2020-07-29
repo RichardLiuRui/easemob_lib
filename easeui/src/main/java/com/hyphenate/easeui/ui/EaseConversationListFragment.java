@@ -281,8 +281,16 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 		for (int i = 0; i < list.size(); i++) {
 			//去重
 			if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
-				if (!list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+				if (!list.get(i).conversationId().equals(CommonUtils.currentUserName)) {
 					list.remove(i);
+				}
+			}
+		}
+		for (int i = 0; i < list.size(); i++) {
+			if (!list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+				if (list.get(i).getAllMessages().size() == 0) {
+					EMClient.getInstance().chatManager().deleteConversation(list.get(i).conversationId(), false);
+					refresh();
 				}
 			}
 		}
@@ -356,13 +364,24 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 					list.remove(i);
 					list.add(0, emConversation);
 				}
+
 			}
 		}
-		//将当前主播显示在第一条
+		//todo 去重多端登录
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
-				if (!list.get(i).conversationId().equals(CommonUtils.anchorAccount))
+				if (!list.get(i).conversationId().equals(CommonUtils.currentUserName))
 					list.remove(i);
+			}
+		}
+
+		for (int i = 0; i < list.size(); i++) {
+			if (!list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+
+				if (list.get(i).getAllMessages().size() == 0) {
+					EMClient.getInstance().chatManager().deleteConversation(list.get(i).conversationId(), false);
+					refresh();
+				}
 			}
 		}
 		//todo 返回列表为0 展示缺省页

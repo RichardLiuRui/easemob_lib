@@ -16,15 +16,20 @@ public class CommonUtils {
 
 	public static final int LIVE_PRIVATE_LETTER = 1; //直播间私信
 	public static final int MY_PRIVATE_LETTER = 2; //我的私信
+	
+	
 	//标记是主播还是观众
 	public static Integer type ;
-	
 	//当前主播的im账号
 	public static String anchorAccount = "";
-	public static  String currentUserName = ""; //当前用户
-
+	//当前用户
+	public static  String currentUserName = "";
 	//私信类型
 	public static int privateType;
+	//需要跳转的activity
+	public static Class<?> intentClass;
+	//扣钻值
+	public static long diamondNum = 0;
 	
 	public static void setPrivateLetterType (int type) {
 		privateType = type;
@@ -34,8 +39,6 @@ public class CommonUtils {
 	}
 
 
-	//需要跳转的activity
-	public static Class<?> intentClass;
 	
 	public static void setIntentClass (Class<?> cls) {
 		intentClass = cls;
@@ -47,10 +50,8 @@ public class CommonUtils {
 	public static void setRole(int role) {
 		type = role;
 	}
-	//用户头像
-	public static UserAvatarBean userAvatarBean;
-	public static void setUserAvatarBean(UserAvatarBean bean){
-		userAvatarBean = bean;
+	public static void setDiamondNum(int num) {
+		diamondNum = num;
 	}
 
 	//聊天界面头像点击事件
@@ -113,5 +114,14 @@ public class CommonUtils {
 	}
 	public interface OnSetUserNameListener{
 		void onSetUserName(String userName, View view);
+	}
+
+	//接口返回成功后发送文本消息
+	public static OnSendMessageListener onSendMessageListener;
+	public static void setOnSendMessageListener(OnSendMessageListener listener) {
+		onSendMessageListener = listener;
+	}
+	public interface OnSendMessageListener{
+		void onSendMessage(String content);
 	}
 }

@@ -214,7 +214,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 if (CommonUtils.type == CommonUtils.AUDIENCE) {
                     CommonUtils.OnSendTxtMessageListener listener = CommonUtils.onSendTxtMessageListener;
                     if (listener != null) {
-                        listener.onSendMessage(getActivity(),toChatUsername,content);
+                        listener.onSendMessage(getActivity(), toChatUsername, content);
                     }
                     return;
                 }
@@ -305,6 +305,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             }
         };
 
+        CommonUtils.setOnSendMessageListener(new CommonUtils.OnSendMessageListener() {
+            @Override
+            public void onSendMessage(String content) {
+                sendTextMessage(content);
+            }
+        });
     }
 
     protected void setUpView() {

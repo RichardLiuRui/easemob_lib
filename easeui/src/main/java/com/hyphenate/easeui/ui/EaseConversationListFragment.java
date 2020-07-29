@@ -80,18 +80,18 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		conversationListView = view.findViewById(R.id.list);
 		llNull = view.findViewById(R.id.ll_null);
-		getView().findViewById(R.id.tv_ignore_unread).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				for (int i = 0; i < loadConversationList().size(); i++) {
-					EMConversation conversation = EMClient.getInstance().chatManager().getConversation(loadConversationList().get(i).conversationId());
-					//指定会话消息未读数清零
-					conversation.markAllMessagesAsRead();
-					refresh();
-				}
-
-			}
-		});
+//		getView().findViewById(R.id.tv_ignore_unread).setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//				for (int i = 0; i < loadConversationList().size(); i++) {
+//					EMConversation conversation = EMClient.getInstance().chatManager().getConversation(loadConversationList().get(i).conversationId());
+//					//指定会话消息未读数清零
+//					conversation.markAllMessagesAsRead();
+//					refresh();
+//				}
+//
+//			}
+//		});
 		//   query = (EditText) getView().findViewById(R.id.query);
 		// button to clear content in search bar
 		//     clearSearch = (ImageButton) getView().findViewById(R.id.search_clear);
@@ -269,10 +269,14 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 //			}
 			//将当前主播显示在第一条
 			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
-					EMConversation emConversation = list.get(i);
-					list.remove(i);
-					list.add(0, emConversation);
+				//去重
+				if (list.get(i).conversationId().contains(CommonUtils.anchorAccount)) {
+					if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+						EMConversation emConversation = list.get(i);
+						list.remove(i);
+						list.add(0, emConversation);
+					} else
+						list.remove(i);
 				}
 			}
 		}
@@ -287,9 +291,11 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 
 		return list;
 	}
+
 	/**
 	 * load conversation list
-	 *首次加载
+	 * 首次加载
+	 *
 	 * @return +
 	 */
 	protected List<EMConversation> fristLoadConversationList() {
@@ -339,10 +345,13 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 			}
 			//将当前主播显示在第一条
 			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
-					EMConversation emConversation = list.get(i);
-					list.remove(i);
-					list.add(0, emConversation);
+				if (list.get(i).conversationId().contains(CommonUtils.anchorAccount)) {
+					if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+						EMConversation emConversation = list.get(i);
+						list.remove(i);
+						list.add(0, emConversation);
+					} else
+						list.remove(i);
 				}
 			}
 		}
@@ -357,6 +366,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 
 		return list;
 	}
+
 	/**
 	 * sort conversations according time stamp of last message
 	 *

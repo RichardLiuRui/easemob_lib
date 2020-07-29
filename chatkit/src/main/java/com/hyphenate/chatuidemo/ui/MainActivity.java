@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity {
 
 		EMClient.getInstance().contactManager().setContactListener(new MyContactListener());
 		EMClient.getInstance().addClientListener(clientListener);
-		EMClient.getInstance().addMultiDeviceListener(new MyMultiDeviceListener());
+	//	EMClient.getInstance().addMultiDeviceListener(new MyMultiDeviceListener());
 		//debug purpose only
         registerInternalDebugReceiver();
 

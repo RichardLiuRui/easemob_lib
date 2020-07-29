@@ -61,7 +61,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 
 	};
 	public View view;
-	
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -270,16 +270,19 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 //			}
 			//将当前主播显示在第一条
 			for (int i = 0; i < list.size(); i++) {
-//				Log.e("111",list.get(i).conversationId()+"");
-//				Log.e("111",EMClient.getInstance().getCurrentUser());
-				//去重
-				if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
-					if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
-						EMConversation emConversation = list.get(i);
-						list.remove(i);
-						list.add(0, emConversation);
-					} else
-						list.remove(i);
+				if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+					EMConversation emConversation = list.get(i);
+					list.remove(i);
+					list.add(0, emConversation);
+				}
+			}
+		}
+
+		for (int i = 0; i < list.size(); i++) {
+			//去重
+			if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
+				if (!list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+					list.remove(i);
 				}
 			}
 		}
@@ -348,16 +351,18 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 			}
 			//将当前主播显示在第一条
 			for (int i = 0; i < list.size(); i++) {
-//				Log.e("111",list.get(i).conversationId()+"");
-//				Log.e("111",EMClient.getInstance().getCurrentUser());
-				if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
-					if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
-						EMConversation emConversation = list.get(i);
-						list.remove(i);
-						list.add(0, emConversation);
-					} else
-						list.remove(i);
+				if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
+					EMConversation emConversation = list.get(i);
+					list.remove(i);
+					list.add(0, emConversation);
 				}
+			}
+		}
+		//将当前主播显示在第一条
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
+				if (!list.get(i).conversationId().equals(CommonUtils.anchorAccount))
+					list.remove(i);
 			}
 		}
 		//todo 返回列表为0 展示缺省页
@@ -377,7 +382,8 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 	 *
 	 * @param conversationList
 	 */
-	private void sortConversationByLastChatTime(List<Pair<Long, EMConversation>> conversationList) {
+	private void sortConversationByLastChatTime
+	(List<Pair<Long, EMConversation>> conversationList) {
 		Collections.sort(conversationList, new Comparator<Pair<Long, EMConversation>>() {
 			@Override
 			public int compare(final Pair<Long, EMConversation> con1, final Pair<Long, EMConversation> con2) {
@@ -447,7 +453,8 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 	 *
 	 * @param listItemClickListener
 	 */
-	public void setConversationListItemClickListener(EaseConversationListItemClickListener listItemClickListener) {
+	public void setConversationListItemClickListener(EaseConversationListItemClickListener
+			                                                 listItemClickListener) {
 		this.listItemClickListener = listItemClickListener;
 	}
 

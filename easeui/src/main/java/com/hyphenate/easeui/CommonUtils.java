@@ -21,14 +21,19 @@ public class CommonUtils {
 	
 	//当前主播的im账号
 	public static String anchorAccount = "";
-	
+	public static  String currentUserName = ""; //当前用户
+
 	//私信类型
 	public static int privateType;
 	
 	public static void setPrivateLetterType (int type) {
 		privateType = type;
 	}
-	
+	public static void setCurrentUserName (String name) {
+		currentUserName = name;
+	}
+
+
 	//需要跳转的activity
 	public static Class<?> intentClass;
 	

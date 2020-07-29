@@ -273,7 +273,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 //				Log.e("111",list.get(i).conversationId()+"");
 //				Log.e("111",EMClient.getInstance().getCurrentUser());
 				//去重
-				if (list.get(i).conversationId().startsWith(EMClient.getInstance().getCurrentUser())) {
+				if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
 					if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
 						EMConversation emConversation = list.get(i);
 						list.remove(i);
@@ -350,7 +350,7 @@ public class EaseConversationListFragment extends EaseBaseFragment {
 			for (int i = 0; i < list.size(); i++) {
 //				Log.e("111",list.get(i).conversationId()+"");
 //				Log.e("111",EMClient.getInstance().getCurrentUser());
-				if (list.get(i).conversationId().startsWith(EMClient.getInstance().getCurrentUser())) {
+				if (list.get(i).conversationId().startsWith(CommonUtils.currentUserName)) {
 					if (list.get(i).conversationId().equals(CommonUtils.anchorAccount)) {
 						EMConversation emConversation = list.get(i);
 						list.remove(i);

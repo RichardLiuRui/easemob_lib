@@ -47,7 +47,7 @@ public class DemoApplication extends Application {
 
 		CommonUtils.setPrivateLetterType(CommonUtils.LIVE_PRIVATE_LETTER);
 		CommonUtils.setRole(CommonUtils.AUDIENCE);
-		CommonUtils.setAnchorAccount("wqx0816");
+		CommonUtils.setAnchorAccount("sherry0816");
 		registerActivityLifecycleCallbacks();
 		//init demo helper
         EaseMobHelper.getInstance().init(applicationContext);
